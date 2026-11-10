@@ -31,7 +31,7 @@
       --app-outer-bg: #ebebef;
       --modal-bg: #ffffff;
       --pill-bg: #ffffff;
-      --nav-glass: rgba(255, 255, 255, 0.92);
+      --nav-glass: rgba(255, 255, 255, 0.94);
       --header-glass: rgba(255, 255, 255, 0.92);
       --radius-sm: 12px;
       --radius-md: 18px;
@@ -52,7 +52,7 @@
       --app-outer-bg: #09090a;
       --modal-bg: #1c1c1e;
       --pill-bg: #2c2c2e;
-      --nav-glass: rgba(20, 20, 22, 0.92);
+      --nav-glass: rgba(20, 20, 22, 0.94);
       --header-glass: rgba(20, 20, 22, 0.92);
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
       --weekend-sat: #0a84ff;
@@ -85,16 +85,15 @@
       touch-action: manipulation;
     }
 
-    html {
+    html, body {
+      width: 100%;
       height: 100%;
+      height: 100dvh;
       background-color: var(--bg);
       overscroll-behavior-y: none;
     }
 
     body {
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg);
       font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
       letter-spacing: -0.35px;
       font-feature-settings: "tnum";
@@ -114,6 +113,7 @@
       max-width: 440px;
       margin: 0 auto;
       height: 100%;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -125,7 +125,7 @@
     main {
       flex: 1;
       height: 100%;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px 80px;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 0px) + 82px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
@@ -1059,7 +1059,7 @@
       display: flex; 
       align-items: center; 
       gap: 8px; 
-      flex: 1;
+      flex: 1; 
       min-width: 0;
     }
     .sheet-header h3 { 
@@ -1313,14 +1313,14 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: 64px 고정 높이 및 최하단 밀착 */
+    /* 하단 메뉴 바: Safe-Area를 완전히 채우며 맨 밑바닥에 고정 */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       width: 100%;
-      height: 64px;
+      height: calc(64px + env(safe-area-inset-bottom, 0px));
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -1329,14 +1329,14 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 6px;
-      padding-bottom: 12px;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
       z-index: 999;
       box-sizing: border-box;
     }
     .nav-inner-container {
       width: 100%;
       max-width: 440px;
-      height: 100%;
+      height: 58px;
       display: flex;
       align-items: center;
     }
@@ -1505,7 +1505,7 @@
   </main>
 </div>
 
-<!-- 하단 4단 메뉴 바 (body 직속 고정) -->
+<!-- 하단 4단 메뉴 바 (safe-area 채움 및 바닥 완전 밀착) -->
 <nav class="bottom-nav">
   <div class="nav-inner-container">
     <button class="nav-item active" onclick="switchTab('calendar')">

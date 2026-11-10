@@ -85,24 +85,25 @@
       touch-action: manipulation;
     }
 
-    html, body {
-      overscroll-behavior-y: none;
-      -webkit-touch-callout: none;
+    /* html과 body의 배경색을 var(--bg)로 통일하여 하단 회색 갭 원천 차단 */
+    html {
       height: 100%;
-      width: 100%;
+      background-color: var(--bg);
+      overscroll-behavior-y: none;
     }
 
     body {
-      background-color: var(--app-outer-bg);
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg);
       font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
       letter-spacing: -0.35px;
       font-feature-settings: "tnum";
       color: var(--text-main);
-      display: flex;
-      justify-content: center;
       user-select: none;
       -webkit-user-select: none;
       transition: background-color 0.25s ease, color 0.25s ease;
+      overflow: hidden; /* 바깥 뷰포트 튕김 및 공백 방지 */
     }
 
     body.modal-open {
@@ -112,23 +113,23 @@
     #app-container {
       width: 100%;
       max-width: 440px;
-      background-color: var(--bg);
+      margin: 0 auto;
       height: 100%;
-      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+      background-color: var(--bg);
       border-left: 1px solid var(--border-subtle);
       border-right: 1px solid var(--border-subtle);
-      transition: background-color 0.25s ease;
     }
 
     main {
       flex: 1;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 75px);
+      height: 100%;
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 72px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
+      box-sizing: border-box;
     }
 
     .tab-view {
@@ -964,7 +965,7 @@
       padding: 2px 0;
     }
 
-    /* 이모지 전용 5열 균등 그리드: 우측 빈 공간 없이 꽉 채움 */
+    /* 이모지 전용 5열 그리드 */
     .emoji-grid-selector-box {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1035,7 +1036,7 @@
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
-      z-index: 100;
+      z-index: 1000;
       display: none;
       justify-content: center;
       align-items: flex-end;
@@ -1253,7 +1254,7 @@
       background: rgba(0,0,0,0.68);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      z-index: 120;
+      z-index: 1000;
       display: none;
       justify-content: center;
       align-items: center;
@@ -1323,28 +1324,27 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: 최하단 고정 */
+    /* 하단 메뉴 바: body 직속 고정 및 뷰포트 맨 바닥 완벽 밀착 */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       width: 100%;
-      height: calc(env(safe-area-inset-bottom, 20px) + 52px);
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: center;
-      padding-bottom: env(safe-area-inset-bottom, 20px);
+      padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
       z-index: 999;
       box-sizing: border-box;
     }
     .nav-inner-container {
       width: 100%;
       max-width: 440px;
-      height: 100%;
+      height: 52px;
       display: flex;
       align-items: center;
     }
@@ -1368,6 +1368,7 @@
   </style>
 </head>
 <body>
+<!-- 앱 본문 컨테이너 -->
 <div id="app-container">
   <main>
     <!-- [탭 1] Calendar -->
@@ -1513,236 +1514,236 @@
       </div>
     </div>
   </main>
+</div> <!-- #app-container 끝 -->
 
-  <!-- 하단 4단 내비게이션 바 -->
-  <nav class="bottom-nav">
-    <div class="nav-inner-container">
-      <button class="nav-item active" onclick="switchTab('calendar')">
-        <i class="fa-regular fa-calendar-days"></i>
-        <span>Calendar</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('timeline')">
-        <i class="fa-solid fa-book-open"></i>
-        <span>Timeline</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('tasks')">
-        <i class="fa-solid fa-square-check"></i>
-        <span>Tasks</span>
-      </button>
-      <button class="nav-item" onclick="switchTab('overview')">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-        <span>Overview</span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- [모달 1] 일기 작성 모달 -->
-  <div class="modal-overlay" id="diary-modal">
-    <div class="bottom-sheet" id="diary-sheet">
-      <div class="sheet-header">
-        <div class="sheet-header-title-box">
-          <button class="day-shift-btn" onclick="navigateDay(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-          <h3 id="diary-sheet-title">2026. 11. 10. (화)</h3>
-          <button class="day-shift-btn" onclick="navigateDay(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-        <div style="display: flex; align-items: center; gap: 6px;">
-          <button class="circle-icon-btn" style="width: 32px; height: 32px;" onclick="openScheduleModalFromDiary()" title="일정 관리"><i class="fa-regular fa-calendar-plus"></i></button>
-          <button class="sheet-close-btn" onclick="closeDiaryModal()"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-      </div>
-
-      <div id="diary-schedule-recommend" style="display: none;"></div>
-
-      <div>
-        <label style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600; display: block; margin-bottom: 6px;">사진 (최대 10장)</label>
-        <div class="photo-row-scroller" id="diary-photo-scroller">
-          <label class="unified-visual-box" style="width: 72px; height: 72px; border-radius: 10px; cursor: pointer;">
-            <i class="fa-solid fa-camera"></i>
-            <input type="file" accept="image/*" multiple style="display: none;" onchange="handleDiaryPhotos(event)">
-          </label>
-        </div>
-      </div>
-
-      <div class="pool-section">
-        <div class="pool-header">
-          <label class="pool-label">With</label>
-          <span class="pool-caption">탭하여 선택</span>
-        </div>
-        <div class="chip-selector-box" id="diary-badge-pool-chips"></div>
-        <div class="pool-add-row">
-          <input type="text" id="new-badge-input" class="pool-add-input" placeholder="+ 새 With 추가" onkeydown="handleNewBadgeKey(event)">
-          <button type="button" class="pool-add-btn" onclick="addNewCustomBadge()">추가</button>
-        </div>
-      </div>
-
-      <!-- 이모지 풀: 5열 그리드로 우측 빈틈 없이 가로 100% 균등 채움 -->
-      <div class="pool-section">
-        <div class="pool-header">
-          <label class="pool-label">Emoji</label>
-          <span class="pool-caption">탭하여 선택</span>
-        </div>
-        <div class="emoji-grid-selector-box" id="diary-emoji-pool-chips"></div>
-        <div class="pool-add-row">
-          <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가 (예: 🏕️)" onkeydown="handleNewEmojiKey(event)">
-          <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
-        </div>
-      </div>
-
-      <textarea class="clean-textarea" id="diary-input-text" placeholder="글은 비워두고 사진이나 뱃지만 남겨도 완벽해요." style="min-height: 100px;"></textarea>
-
-      <div style="display: flex; gap: 8px;">
-        <button class="btn-submit-sheet" style="flex:1; background: #ffebeb; color: #ff3b30;" onclick="deleteDiaryEntry()">삭제</button>
-        <button class="btn-submit-sheet ready" style="flex:2;" onclick="saveDiaryEntry()">저장</button>
-      </div>
-    </div>
+<!-- 하단 메뉴 바: app-container 바깥, body 직속 배치로 뷰포트 맨 바닥에 완벽 안착 -->
+<nav class="bottom-nav">
+  <div class="nav-inner-container">
+    <button class="nav-item active" onclick="switchTab('calendar')">
+      <i class="fa-regular fa-calendar-days"></i>
+      <span>Calendar</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('timeline')">
+      <i class="fa-solid fa-book-open"></i>
+      <span>Timeline</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('tasks')">
+      <i class="fa-solid fa-square-check"></i>
+      <span>Tasks</span>
+    </button>
+    <button class="nav-item" onclick="switchTab('overview')">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <span>Overview</span>
+    </button>
   </div>
+</nav>
 
-  <!-- [모달 2] 일정 등록 모달 -->
-  <div class="modal-overlay" id="schedule-modal">
-    <div class="bottom-sheet">
-      <div class="sheet-header">
-        <h3 id="schedule-modal-title">일정 등록</h3>
-        <button class="sheet-close-btn" onclick="closeScheduleModal()"><i class="fa-solid fa-xmark"></i></button>
+<!-- [모달 1] 일기 작성 모달 -->
+<div class="modal-overlay" id="diary-modal">
+  <div class="bottom-sheet" id="diary-sheet">
+    <div class="sheet-header">
+      <div class="sheet-header-title-box">
+        <button class="day-shift-btn" onclick="navigateDay(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <h3 id="diary-sheet-title">2026. 11. 10. (화)</h3>
+        <button class="day-shift-btn" onclick="navigateDay(1)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 10px;">
-        <input type="text" id="sch-title" class="clean-input" placeholder="일정 내용 (예: 성수동 전시회 관람)">
-        <div style="display: flex; gap: 8px; width: 100%;">
-          <input type="time" id="sch-time" class="clean-input" style="flex: 0 0 115px; min-width: 0;">
-          <input type="text" id="sch-with" class="clean-input" placeholder="동행인" style="flex: 1; min-width: 0;">
-        </div>
-        <input type="text" id="sch-place" class="clean-input" placeholder="장소 / 메모">
-      </div>
-      <div id="sch-day-list" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;"></div>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn-submit-sheet" style="flex: 1; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="closeScheduleModal()">닫기</button>
-        <button class="btn-submit-sheet ready" style="flex: 2;" onclick="saveScheduleItem()">일정 추가</button>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <button class="circle-icon-btn" style="width: 32px; height: 32px;" onclick="openScheduleModalFromDiary()" title="일정 관리"><i class="fa-regular fa-calendar-plus"></i></button>
+        <button class="sheet-close-btn" onclick="closeDiaryModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
-  </div>
 
-  <!-- [모달 3] 활동 추가 및 오브제 쇼케이스 모달 -->
-  <div class="modal-overlay" id="archive-modal">
-    <div class="bottom-sheet">
-      <div class="sheet-header">
-        <h3 id="archive-modal-title">활동 기록</h3>
-        <button class="sheet-close-btn" onclick="closeArchiveModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      
-      <div class="input-row-top">
-        <div class="unified-visual-col">
-          <div class="unified-visual-box" id="unified-cover-box" onclick="toggleEmojiPopover()">
-            <span class="preview-emoji" id="box-emoji-text">📚</span>
-          </div>
-          <div class="visual-action-btns">
-            <button type="button" onclick="toggleEmojiPopover()">이모지</button>
-            <label for="cover-file-input">포스터/메달</label>
-            <button type="button" onclick="clearCoverPhoto()" id="btn-del-photo" style="display:none;">제거</button>
-            <input type="file" id="cover-file-input" accept="image/*" style="display: none;" onchange="handleCoverPhoto(event)">
-          </div>
-        </div>
-        <div style="flex:1; display:flex; flex-direction:column; gap:8px; min-width:0;">
-          <select id="ar-cat" class="clean-input" onchange="onCategorySelect(this.value)">
-            <option value="책">📚 책 (표지/인용구)</option>
-            <option value="영화">🎬 영화 (포스터/평점)</option>
-            <option value="운동">🏃 러닝/운동 (메달/기록)</option>
-            <option value="공연/연극">🎭 공연/전시 (티켓/후기)</option>
-            <option value="기타">✨ 기타 활동</option>
-          </select>
-          <input type="text" id="ar-title" class="clean-input" placeholder="작품명 / 대회명 / 활동명" oninput="checkArchiveReady()">
-          <input type="text" id="ar-sub" class="clean-input" placeholder="저자 / 감독 / 완주 기록 (예: 10km 48분)">
-        </div>
-      </div>
-      <div class="emoji-popover" id="emoji-popover-grid"></div>
+    <div id="diary-schedule-recommend" style="display: none;"></div>
 
-      <div style="display: flex; gap: 8px;">
-        <select id="ar-rating" class="clean-input" style="flex: 1;">
-          <option value="">평점 선택 (선택 안 함)</option>
-          <option value="5.0">★★★★★ 5.0 (인생작/최고)</option>
-          <option value="4.5">★★★★☆ 4.5 (강력 추천)</option>
-          <option value="4.0">★★★★☆ 4.0 (매우 만족)</option>
-          <option value="3.5">★★★☆☆ 3.5 (좋았음)</option>
-          <option value="3.0">★★★☆☆ 3.0 (보통)</option>
-        </select>
-        <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0 10px; gap: 8px;">
-          <input type="checkbox" id="ar-is-showcase" style="width: 18px; height: 18px; accent-color: var(--accent-blue); cursor: pointer;">
-          <label for="ar-is-showcase" style="font-size: 0.85rem; font-weight: 600; cursor: pointer;">🌟 쇼케이스 전시</label>
-        </div>
-      </div>
-
-      <div style="display:flex; gap:8px;">
-        <input type="date" id="ar-date" class="clean-input">
-      </div>
-
-      <textarea id="ar-memo" class="clean-textarea" placeholder="감상평, 코멘트, 당시 느낌을 자유롭게 남겨보세요."></textarea>
-      <input type="text" id="ar-quote" class="clean-input" placeholder="인상 깊은 대사 / 책의 문장 / 마라톤 완주 소감">
-
-      <button id="btn-save-archive" class="btn-submit-sheet" onclick="saveArchiveItem()">저장</button>
-    </div>
-  </div>
-
-  <!-- [모달 4] 설정 및 백업 -->
-  <div class="modal-overlay" id="settings-modal">
-    <div class="bottom-sheet">
-      <div class="sheet-header">
-        <h3>설정</h3>
-        <button class="sheet-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">화면 테마</div>
-      <div class="theme-picker-group">
-        <button class="theme-btn" id="theme-btn-light" onclick="setAppTheme('light')"><i class="fa-regular fa-sun" style="font-size:1.2rem;"></i><span>라이트</span></button>
-        <button class="theme-btn" id="theme-btn-dark" onclick="setAppTheme('dark')"><i class="fa-solid fa-moon" style="font-size:1.2rem;"></i><span>다크</span></button>
-        <button class="theme-btn" id="theme-btn-sepia" onclick="setAppTheme('sepia')"><i class="fa-solid fa-book" style="font-size:1.2rem;"></i><span>세피아</span></button>
-      </div>
-      <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">데이터 백업 & 복원</div>
-      <div class="settings-item">
-        <button class="settings-btn" onclick="exportBackupData()"><i class="fa-solid fa-download"></i> 전체 데이터 파일 백업 (.json)</button>
-      </div>
-      <div class="settings-item">
-        <label class="settings-btn" style="cursor: pointer;">
-          <i class="fa-solid fa-upload"></i> 백업 파일 불러오기 & 복원
-          <input type="file" accept=".json" style="display: none;" onchange="importBackupData(event)">
+    <div>
+      <label style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600; display: block; margin-bottom: 6px;">사진 (최대 10장)</label>
+      <div class="photo-row-scroller" id="diary-photo-scroller">
+        <label class="unified-visual-box" style="width: 72px; height: 72px; border-radius: 10px; cursor: pointer;">
+          <i class="fa-solid fa-camera"></i>
+          <input type="file" accept="image/*" multiple style="display: none;" onchange="handleDiaryPhotos(event)">
         </label>
       </div>
     </div>
-  </div>
 
-  <!-- [모달 5] 감성 티켓 / 엽서 팝업 뷰 -->
-  <div class="ticket-modal-overlay" id="ticket-modal" onclick="closeTicketModal()">
-    <div class="ticket-card-view" onclick="event.stopPropagation()">
-      <div class="ticket-poster-wrap" id="tk-poster-box"></div>
-      <div class="ticket-rip-line">
-        <div class="ticket-rip-notch-left"></div>
-        <div class="ticket-rip-dash"></div>
-        <div class="ticket-rip-notch-right"></div>
+    <div class="pool-section">
+      <div class="pool-header">
+        <label class="pool-label">With</label>
+        <span class="pool-caption">탭하여 선택</span>
       </div>
-      <div class="ticket-body">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <span style="font-size: 0.72rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 0.5px;" id="tk-category">CATEGORY</span>
-          <span style="font-size: 0.8rem; font-weight: 700; color: #f59e0b;" id="tk-rating"></span>
-        </div>
-        <div style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); line-height: 1.25;" id="tk-title"></div>
-        <div style="font-size: 0.8rem; color: var(--text-sub); font-weight: 500;" id="tk-sub"></div>
-        <div style="font-size: 0.85rem; line-height: 1.5; color: var(--text-main); margin-top: 4px;" id="tk-memo"></div>
-        <div style="font-size: 0.8rem; font-style: italic; color: var(--text-sub); margin-top: 2px;" id="tk-quote"></div>
-        
-        <div class="ticket-barcode">
-          <div class="barcode-bar" style="width: 2px;"></div>
-          <div class="barcode-bar" style="width: 4px;"></div>
-          <div class="barcode-bar" style="width: 1px;"></div>
-          <div class="barcode-bar" style="width: 6px;"></div>
-          <div class="barcode-bar" style="width: 2px;"></div>
-          <div class="barcode-bar" style="width: 3px;"></div>
-          <div class="barcode-bar" style="width: 5px;"></div>
-          <div class="barcode-bar" style="width: 2px;"></div>
-          <div class="barcode-bar" style="width: 4px;"></div>
-          <div class="barcode-bar" style="width: 1px;"></div>
-          <div class="barcode-bar" style="width: 5px;"></div>
-        </div>
+      <div class="chip-selector-box" id="diary-badge-pool-chips"></div>
+      <div class="pool-add-row">
+        <input type="text" id="new-badge-input" class="pool-add-input" placeholder="+ 새 With 추가" onkeydown="handleNewBadgeKey(event)">
+        <button type="button" class="pool-add-btn" onclick="addNewCustomBadge()">추가</button>
+      </div>
+    </div>
 
-        <div style="display: flex; gap: 8px; margin-top: 10px;">
-          <button class="btn-submit-sheet" style="flex: 1; padding: 10px; font-size: 0.85rem; background: var(--card-inner); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="editArchiveFromTicket()">수정</button>
-          <button class="btn-submit-sheet ready" style="flex: 1; padding: 10px; font-size: 0.85rem;" onclick="closeTicketModal()">닫기</button>
+    <!-- 이모지 풀: 5열 균등 그리드 배치 -->
+    <div class="pool-section">
+      <div class="pool-header">
+        <label class="pool-label">Emoji</label>
+        <span class="pool-caption">탭하여 선택</span>
+      </div>
+      <div class="emoji-grid-selector-box" id="diary-emoji-pool-chips"></div>
+      <div class="pool-add-row">
+        <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가 (예: 🏕️)" onkeydown="handleNewEmojiKey(event)">
+        <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
+      </div>
+    </div>
+
+    <textarea class="clean-textarea" id="diary-input-text" placeholder="글은 비워두고 사진이나 뱃지만 남겨도 완벽해요." style="min-height: 100px;"></textarea>
+
+    <div style="display: flex; gap: 8px;">
+      <button class="btn-submit-sheet" style="flex:1; background: #ffebeb; color: #ff3b30;" onclick="deleteDiaryEntry()">삭제</button>
+      <button class="btn-submit-sheet ready" style="flex:2;" onclick="saveDiaryEntry()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- [모달 2] 일정 등록 모달 -->
+<div class="modal-overlay" id="schedule-modal">
+  <div class="bottom-sheet">
+    <div class="sheet-header">
+      <h3 id="schedule-modal-title">일정 등록</h3>
+      <button class="sheet-close-btn" onclick="closeScheduleModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <input type="text" id="sch-title" class="clean-input" placeholder="일정 내용 (예: 성수동 전시회 관람)">
+      <div style="display: flex; gap: 8px; width: 100%;">
+        <input type="time" id="sch-time" class="clean-input" style="flex: 0 0 115px; min-width: 0;">
+        <input type="text" id="sch-with" class="clean-input" placeholder="동행인" style="flex: 1; min-width: 0;">
+      </div>
+      <input type="text" id="sch-place" class="clean-input" placeholder="장소 / 메모">
+    </div>
+    <div id="sch-day-list" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;"></div>
+    <div style="display: flex; gap: 8px;">
+      <button class="btn-submit-sheet" style="flex: 1; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="closeScheduleModal()">닫기</button>
+      <button class="btn-submit-sheet ready" style="flex: 2;" onclick="saveScheduleItem()">일정 추가</button>
+    </div>
+  </div>
+</div>
+
+<!-- [모달 3] 활동 추가 모달 -->
+<div class="modal-overlay" id="archive-modal">
+  <div class="bottom-sheet">
+    <div class="sheet-header">
+      <h3 id="archive-modal-title">활동 기록</h3>
+      <button class="sheet-close-btn" onclick="closeArchiveModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    
+    <div class="input-row-top">
+      <div class="unified-visual-col">
+        <div class="unified-visual-box" id="unified-cover-box" onclick="toggleEmojiPopover()">
+          <span class="preview-emoji" id="box-emoji-text">📚</span>
         </div>
+        <div class="visual-action-btns">
+          <button type="button" onclick="toggleEmojiPopover()">이모지</button>
+          <label for="cover-file-input">포스터/메달</label>
+          <button type="button" onclick="clearCoverPhoto()" id="btn-del-photo" style="display:none;">제거</button>
+          <input type="file" id="cover-file-input" accept="image/*" style="display: none;" onchange="handleCoverPhoto(event)">
+        </div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px; min-width:0;">
+        <select id="ar-cat" class="clean-input" onchange="onCategorySelect(this.value)">
+          <option value="책">📚 책 (표지/인용구)</option>
+          <option value="영화">🎬 영화 (포스터/평점)</option>
+          <option value="운동">🏃 러닝/운동 (메달/기록)</option>
+          <option value="공연/연극">🎭 공연/전시 (티켓/후기)</option>
+          <option value="기타">✨ 기타 활동</option>
+        </select>
+        <input type="text" id="ar-title" class="clean-input" placeholder="작품명 / 대회명 / 활동명" oninput="checkArchiveReady()">
+        <input type="text" id="ar-sub" class="clean-input" placeholder="저자 / 감독 / 완주 기록 (예: 10km 48분)">
+      </div>
+    </div>
+    <div class="emoji-popover" id="emoji-popover-grid"></div>
+
+    <div style="display: flex; gap: 8px;">
+      <select id="ar-rating" class="clean-input" style="flex: 1;">
+        <option value="">평점 선택 (선택 안 함)</option>
+        <option value="5.0">★★★★★ 5.0 (인생작/최고)</option>
+        <option value="4.5">★★★★☆ 4.5 (강력 추천)</option>
+        <option value="4.0">★★★★☆ 4.0 (매우 만족)</option>
+        <option value="3.5">★★★☆☆ 3.5 (좋았음)</option>
+        <option value="3.0">★★★☆☆ 3.0 (보통)</option>
+      </select>
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0 10px; gap: 8px;">
+        <input type="checkbox" id="ar-is-showcase" style="width: 18px; height: 18px; accent-color: var(--accent-blue); cursor: pointer;">
+        <label for="ar-is-showcase" style="font-size: 0.85rem; font-weight: 600; cursor: pointer;">🌟 쇼케이스 전시</label>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px;">
+      <input type="date" id="ar-date" class="clean-input">
+    </div>
+
+    <textarea id="ar-memo" class="clean-textarea" placeholder="감상평, 코멘트, 당시 느낌을 자유롭게 남겨보세요."></textarea>
+    <input type="text" id="ar-quote" class="clean-input" placeholder="인상 깊은 대사 / 책의 문장 / 마라톤 완주 소감">
+
+    <button id="btn-save-archive" class="btn-submit-sheet" onclick="saveArchiveItem()">저장</button>
+  </div>
+</div>
+
+<!-- [모달 4] 설정 및 백업 -->
+<div class="modal-overlay" id="settings-modal">
+  <div class="bottom-sheet">
+    <div class="sheet-header">
+      <h3>설정</h3>
+      <button class="sheet-close-btn" onclick="closeSettingsModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">화면 테마</div>
+    <div class="theme-picker-group">
+      <button class="theme-btn" id="theme-btn-light" onclick="setAppTheme('light')"><i class="fa-regular fa-sun" style="font-size:1.2rem;"></i><span>라이트</span></button>
+      <button class="theme-btn" id="theme-btn-dark" onclick="setAppTheme('dark')"><i class="fa-solid fa-moon" style="font-size:1.2rem;"></i><span>다크</span></button>
+      <button class="theme-btn" id="theme-btn-sepia" onclick="setAppTheme('sepia')"><i class="fa-solid fa-book" style="font-size:1.2rem;"></i><span>세피아</span></button>
+    </div>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">데이터 백업 & 복원</div>
+    <div class="settings-item">
+      <button class="settings-btn" onclick="exportBackupData()"><i class="fa-solid fa-download"></i> 전체 데이터 파일 백업 (.json)</button>
+    </div>
+    <div class="settings-item">
+      <label class="settings-btn" style="cursor: pointer;">
+        <i class="fa-solid fa-upload"></i> 백업 파일 불러오기 & 복원
+        <input type="file" accept=".json" style="display: none;" onchange="importBackupData(event)">
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- [모달 5] 감성 티켓 / 엽서 팝업 뷰 -->
+<div class="ticket-modal-overlay" id="ticket-modal" onclick="closeTicketModal()">
+  <div class="ticket-card-view" onclick="event.stopPropagation()">
+    <div class="ticket-poster-wrap" id="tk-poster-box"></div>
+    <div class="ticket-rip-line">
+      <div class="ticket-rip-notch-left"></div>
+      <div class="ticket-rip-dash"></div>
+      <div class="ticket-rip-notch-right"></div>
+    </div>
+    <div class="ticket-body">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.72rem; font-weight: 700; color: var(--accent-blue); letter-spacing: 0.5px;" id="tk-category">CATEGORY</span>
+        <span style="font-size: 0.8rem; font-weight: 700; color: #f59e0b;" id="tk-rating"></span>
+      </div>
+      <div style="font-size: 1.2rem; font-weight: 800; color: var(--text-main); line-height: 1.25;" id="tk-title"></div>
+      <div style="font-size: 0.8rem; color: var(--text-sub); font-weight: 500;" id="tk-sub"></div>
+      <div style="font-size: 0.85rem; line-height: 1.5; color: var(--text-main); margin-top: 4px;" id="tk-memo"></div>
+      <div style="font-size: 0.8rem; font-style: italic; color: var(--text-sub); margin-top: 2px;" id="tk-quote"></div>
+      
+      <div class="ticket-barcode">
+        <div class="barcode-bar" style="width: 2px;"></div>
+        <div class="barcode-bar" style="width: 4px;"></div>
+        <div class="barcode-bar" style="width: 1px;"></div>
+        <div class="barcode-bar" style="width: 6px;"></div>
+        <div class="barcode-bar" style="width: 2px;"></div>
+        <div class="barcode-bar" style="width: 3px;"></div>
+        <div class="barcode-bar" style="width: 5px;"></div>
+        <div class="barcode-bar" style="width: 2px;"></div>
+        <div class="barcode-bar" style="width: 4px;"></div>
+        <div class="barcode-bar" style="width: 1px;"></div>
+        <div class="barcode-bar" style="width: 5px;"></div>
+      </div>
+
+      <div style="display: flex; gap: 8px; margin-top: 10px;">
+        <button class="btn-submit-sheet" style="flex: 1; padding: 10px; font-size: 0.85rem; background: var(--card-inner); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="editArchiveFromTicket()">수정</button>
+        <button class="btn-submit-sheet ready" style="flex: 1; padding: 10px; font-size: 0.85rem;" onclick="closeTicketModal()">닫기</button>
       </div>
     </div>
   </div>
@@ -2369,7 +2370,7 @@
     }
   }
 
-  /* 5열 그리드로 이모지 칩 렌더링 */
+  /* 5열 그리드 렌더링 */
   function renderEmojiChipsInModal() {
     const container = document.getElementById('diary-emoji-pool-chips');
     container.innerHTML = '';
@@ -3055,7 +3056,7 @@
   function exportBackupData() {
     triggerHaptic(8);
     const backupObj = {
-      version: '2.8',
+      version: '2.9',
       exportedAt: new Date().toISOString(),
       theme: appTheme,
       userBadges: userBadgePool,

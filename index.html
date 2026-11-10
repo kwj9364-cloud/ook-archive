@@ -6,7 +6,7 @@
   <title>OOK</title>
   
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="OOK">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#141416">
@@ -1737,6 +1737,15 @@
 </div>
 
 <script>
+  function triggerHaptic(duration = 8) {
+    if ('vibrate' in navigator) {
+      try { navigator.vibrate(duration); } catch (e) {}
+    }
+  }
+
+  let viewDate = new Date();
+  ...
+  
   function triggerHaptic(duration = 8) {
     if ('vibrate' in navigator) {
       try { navigator.vibrate(duration); } catch (e) {}

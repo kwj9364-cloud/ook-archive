@@ -85,15 +85,18 @@
       touch-action: manipulation;
     }
 
-    html, body {
-      width: 100%;
+    html {
       height: 100%;
-      height: 100dvh;
       background-color: var(--bg);
-      overscroll-behavior-y: none;
+      overscroll-behavior: none;
     }
 
     body {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      inset: 0;
+      background-color: var(--bg);
       font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
       letter-spacing: -0.35px;
       font-feature-settings: "tnum";
@@ -113,19 +116,19 @@
       max-width: 440px;
       margin: 0 auto;
       height: 100%;
-      height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
       background-color: var(--bg);
       border-left: 1px solid var(--border-subtle);
       border-right: 1px solid var(--border-subtle);
+      overflow: hidden;
     }
 
     main {
       flex: 1;
       height: 100%;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 0px) + 82px);
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 70px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
@@ -1313,14 +1316,14 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: Safe-Area를 완전히 채우며 맨 밑바닥에 고정 */
+    /* 하단 메뉴 바: 화면 맨 밑바닥에 완전히 밀착 */
     nav.bottom-nav {
       position: fixed;
-      bottom: 0;
       left: 0;
       right: 0;
+      bottom: 0;
       width: 100%;
-      height: calc(64px + env(safe-area-inset-bottom, 0px));
+      height: calc(56px + env(safe-area-inset-bottom, 20px));
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
@@ -1329,14 +1332,14 @@
       justify-content: center;
       align-items: flex-start;
       padding-top: 6px;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 20px);
       z-index: 999;
       box-sizing: border-box;
     }
     .nav-inner-container {
       width: 100%;
       max-width: 440px;
-      height: 58px;
+      height: 48px;
       display: flex;
       align-items: center;
     }
@@ -1504,8 +1507,7 @@
     </div>
   </main>
 </div>
-
-<!-- 하단 4단 메뉴 바 (safe-area 채움 및 바닥 완전 밀착) -->
+<!-- 하단 메뉴 바 -->
 <nav class="bottom-nav">
   <div class="nav-inner-container">
     <button class="nav-item active" onclick="switchTab('calendar')">

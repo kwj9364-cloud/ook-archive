@@ -31,7 +31,7 @@
       --app-outer-bg: #ebebef;
       --modal-bg: #ffffff;
       --pill-bg: #ffffff;
-      --nav-glass: rgba(255, 255, 255, 0.90);
+      --nav-glass: rgba(255, 255, 255, 0.92);
       --header-glass: rgba(255, 255, 255, 0.92);
       --radius-sm: 12px;
       --radius-md: 18px;
@@ -52,7 +52,7 @@
       --app-outer-bg: #09090a;
       --modal-bg: #1c1c1e;
       --pill-bg: #2c2c2e;
-      --nav-glass: rgba(20, 20, 22, 0.90);
+      --nav-glass: rgba(20, 20, 22, 0.92);
       --header-glass: rgba(20, 20, 22, 0.92);
       --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
       --weekend-sat: #0a84ff;
@@ -70,7 +70,7 @@
       --app-outer-bg: #ded7c8;
       --modal-bg: #f7f3e9;
       --pill-bg: #fdfaf3;
-      --nav-glass: rgba(247, 243, 233, 0.92);
+      --nav-glass: rgba(247, 243, 233, 0.94);
       --header-glass: rgba(247, 243, 233, 0.94);
       --shadow-sm: 0 2px 8px rgba(61, 53, 46, 0.05);
       --weekend-sat: #6b8299;
@@ -89,6 +89,7 @@
       overscroll-behavior-y: none;
       -webkit-touch-callout: none;
       height: 100%;
+      width: 100%;
     }
 
     body {
@@ -99,8 +100,6 @@
       color: var(--text-main);
       display: flex;
       justify-content: center;
-      min-height: 100vh;
-      min-height: 100dvh;
       user-select: none;
       -webkit-user-select: none;
       transition: background-color 0.25s ease, color 0.25s ease;
@@ -114,7 +113,7 @@
       width: 100%;
       max-width: 440px;
       background-color: var(--bg);
-      min-height: 100vh;
+      height: 100%;
       min-height: 100dvh;
       display: flex;
       flex-direction: column;
@@ -127,7 +126,7 @@
 
     main {
       flex: 1;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 16px) + 84px);
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 75px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -143,7 +142,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 상단 헤더: 음수 마진 완전 제거 및 안정적인 분리 */
+    /* 상단 헤더 */
     .sticky-top-header {
       position: sticky;
       top: 0;
@@ -955,6 +954,7 @@
     .pool-header { display: flex; justify-content: space-between; align-items: center; }
     .pool-label { font-size: 0.8rem; color: var(--text-sub); font-weight: 600; }
     .pool-caption { font-size: 0.72rem; color: var(--text-sub); }
+    
     .chip-selector-box {
       display: flex;
       flex-wrap: wrap;
@@ -963,6 +963,22 @@
       overflow-y: auto;
       padding: 2px 0;
     }
+
+    /* 이모지 전용 5열 균등 그리드: 우측 빈 공간 없이 꽉 채움 */
+    .emoji-grid-selector-box {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      max-height: 120px;
+      overflow-y: auto;
+      padding: 2px 0;
+    }
+    .emoji-grid-selector-box .select-chip-item {
+      justify-content: center;
+      padding: 6px 2px;
+      width: 100%;
+    }
+
     .select-chip-item {
       display: inline-flex;
       align-items: center;
@@ -1307,21 +1323,22 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: 뷰포트 맨 바닥 완벽 밀착 */
+    /* 하단 메뉴 바: 최하단 고정 */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
+      right: 0;
       width: 100%;
-      height: calc(env(safe-area-inset-bottom, 16px) + 54px);
+      height: calc(env(safe-area-inset-bottom, 20px) + 52px);
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: center;
-      padding-bottom: env(safe-area-inset-bottom, 16px);
-      z-index: 50;
+      padding-bottom: env(safe-area-inset-bottom, 20px);
+      z-index: 999;
       box-sizing: border-box;
     }
     .nav-inner-container {
@@ -1558,12 +1575,13 @@
         </div>
       </div>
 
+      <!-- 이모지 풀: 5열 그리드로 우측 빈틈 없이 가로 100% 균등 채움 -->
       <div class="pool-section">
         <div class="pool-header">
           <label class="pool-label">Emoji</label>
           <span class="pool-caption">탭하여 선택</span>
         </div>
-        <div class="chip-selector-box" id="diary-emoji-pool-chips"></div>
+        <div class="emoji-grid-selector-box" id="diary-emoji-pool-chips"></div>
         <div class="pool-add-row">
           <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가 (예: 🏕️)" onkeydown="handleNewEmojiKey(event)">
           <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
@@ -2351,6 +2369,7 @@
     }
   }
 
+  /* 5열 그리드로 이모지 칩 렌더링 */
   function renderEmojiChipsInModal() {
     const container = document.getElementById('diary-emoji-pool-chips');
     container.innerHTML = '';
@@ -3036,7 +3055,7 @@
   function exportBackupData() {
     triggerHaptic(8);
     const backupObj = {
-      version: '2.7',
+      version: '2.8',
       exportedAt: new Date().toISOString(),
       theme: appTheme,
       userBadges: userBadgePool,

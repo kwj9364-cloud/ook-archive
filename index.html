@@ -85,7 +85,6 @@
       touch-action: manipulation;
     }
 
-    /* html과 body의 배경색을 var(--bg)로 통일하여 하단 회색 갭 원천 차단 */
     html {
       height: 100%;
       background-color: var(--bg);
@@ -103,7 +102,7 @@
       user-select: none;
       -webkit-user-select: none;
       transition: background-color 0.25s ease, color 0.25s ease;
-      overflow: hidden; /* 바깥 뷰포트 튕김 및 공백 방지 */
+      overflow: hidden;
     }
 
     body.modal-open {
@@ -126,7 +125,7 @@
     main {
       flex: 1;
       height: 100%;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 72px);
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px 80px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
@@ -143,7 +142,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 상단 헤더 */
     .sticky-top-header {
       position: sticky;
       top: 0;
@@ -192,7 +190,6 @@
     }
     .circle-icon-btn:active { transform: scale(0.90); }
 
-    /* [탭 1] Calendar */
     .cal-weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -358,7 +355,6 @@
       flex-shrink: 0;
     }
 
-    /* [탭 2] Timeline */
     .btn-pill-add {
       background: var(--text-main);
       color: var(--bg);
@@ -573,7 +569,6 @@
     .archive-actions { display: flex; gap: 8px; }
     .archive-actions button { background: none; border: none; color: var(--text-sub); cursor: pointer; }
 
-    /* [탭 3] Tasks */
     .btn-clear-done {
       background: transparent;
       border: 1px solid var(--border-subtle);
@@ -651,7 +646,6 @@
     .task-text { flex: 1; font-size: 0.92rem; }
     .task-del-btn { background: none; border: none; color: var(--text-sub); cursor: pointer; }
 
-    /* [탭 4] Overview */
     .overview-mode-selector {
       display: flex;
       background: var(--card-bg);
@@ -883,7 +877,6 @@
       border-top: 1px dashed var(--border-subtle);
     }
 
-    /* 연간 365 잔디 매트릭스 */
     .matrix-board-box {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
@@ -950,7 +943,6 @@
     }
     .inspector-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
-    /* With & Emoji 풀 공통 UI */
     .pool-section { display: flex; flex-direction: column; gap: 8px; }
     .pool-header { display: flex; justify-content: space-between; align-items: center; }
     .pool-label { font-size: 0.8rem; color: var(--text-sub); font-weight: 600; }
@@ -965,7 +957,6 @@
       padding: 2px 0;
     }
 
-    /* 이모지 전용 5열 그리드 */
     .emoji-grid-selector-box {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1029,7 +1020,6 @@
       cursor: pointer;
     }
 
-    /* 모달 */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -1247,7 +1237,6 @@
       cursor: pointer;
     }
 
-    /* 티켓 / 엽서 팝업 */
     .ticket-modal-overlay {
       position: fixed;
       inset: 0;
@@ -1324,27 +1313,30 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: body 직속 고정 및 뷰포트 맨 바닥 완벽 밀착 */
+    /* 하단 메뉴 바: 64px 고정 높이 및 최하단 밀착 */
     nav.bottom-nav {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       width: 100%;
+      height: 64px;
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: center;
-      padding-bottom: max(env(safe-area-inset-bottom, 0px), 16px);
+      align-items: flex-start;
+      padding-top: 6px;
+      padding-bottom: 12px;
       z-index: 999;
       box-sizing: border-box;
     }
     .nav-inner-container {
       width: 100%;
       max-width: 440px;
-      height: 52px;
+      height: 100%;
       display: flex;
       align-items: center;
     }
@@ -1352,7 +1344,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
       align-items: center;
       justify-content: center;
       background: none;
@@ -1368,7 +1360,6 @@
   </style>
 </head>
 <body>
-<!-- 앱 본문 컨테이너 -->
 <div id="app-container">
   <main>
     <!-- [탭 1] Calendar -->
@@ -1417,7 +1408,6 @@
         </div>
       </div>
 
-      <!-- 오브제 쇼케이스 전시관 -->
       <div class="showcase-section" id="showcase-section" style="display: none;">
         <div class="showcase-header">
           <div class="showcase-title">
@@ -1428,7 +1418,6 @@
         <div class="showcase-carousel" id="showcase-carousel"></div>
       </div>
 
-      <!-- 활동 스트림 -->
       <div class="timeline-stream-heading">
         <i class="fa-solid fa-bars-staggered" style="color: var(--accent-blue);"></i> 활동 스트림
       </div>
@@ -1514,9 +1503,9 @@
       </div>
     </div>
   </main>
-</div> <!-- #app-container 끝 -->
+</div>
 
-<!-- 하단 메뉴 바: app-container 바깥, body 직속 배치로 뷰포트 맨 바닥에 완벽 안착 -->
+<!-- 하단 4단 메뉴 바 (body 직속 고정) -->
 <nav class="bottom-nav">
   <div class="nav-inner-container">
     <button class="nav-item active" onclick="switchTab('calendar')">
@@ -1577,7 +1566,6 @@
       </div>
     </div>
 
-    <!-- 이모지 풀: 5열 균등 그리드 배치 -->
     <div class="pool-section">
       <div class="pool-header">
         <label class="pool-label">Emoji</label>
@@ -1622,7 +1610,7 @@
   </div>
 </div>
 
-<!-- [모달 3] 활동 추가 모달 -->
+<!-- [모달 3] 활동 추가 및 오브제 쇼케이스 모달 -->
 <div class="modal-overlay" id="archive-modal">
   <div class="bottom-sheet">
     <div class="sheet-header">
@@ -2370,7 +2358,6 @@
     }
   }
 
-  /* 5열 그리드 렌더링 */
   function renderEmojiChipsInModal() {
     const container = document.getElementById('diary-emoji-pool-chips');
     container.innerHTML = '';
@@ -3056,7 +3043,7 @@
   function exportBackupData() {
     triggerHaptic(8);
     const backupObj = {
-      version: '2.9',
+      version: '3.0',
       exportedAt: new Date().toISOString(),
       theme: appTheme,
       userBadges: userBadgePool,

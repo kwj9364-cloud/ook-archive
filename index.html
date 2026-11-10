@@ -128,7 +128,7 @@
     main {
       flex: 1;
       height: 100%;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px calc(env(safe-area-inset-bottom, 20px) + 70px);
+      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px 24px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
@@ -1316,25 +1316,22 @@
       background: var(--text-main);
     }
 
-    /* 하단 메뉴 바: 화면 맨 밑바닥에 완전히 밀착 */
+    /* 하단 메뉴 바: app-container 내부의 Flexbox 바닥 요소로 배치 */
     nav.bottom-nav {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      position: relative;
       width: 100%;
-      height: calc(56px + env(safe-area-inset-bottom, 20px));
+      flex-shrink: 0;
       background: var(--nav-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-top: 1px solid var(--border-subtle);
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       padding-top: 6px;
-      padding-bottom: env(safe-area-inset-bottom, 20px);
-      z-index: 999;
+      padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 6px);
       box-sizing: border-box;
+      z-index: 100;
     }
     .nav-inner-container {
       width: 100%;
@@ -1506,28 +1503,28 @@
       </div>
     </div>
   </main>
+  <!-- 하단 네비게이션 메뉴 (app-container 내부 바닥 결합) -->
+  <nav class="bottom-nav">
+    <div class="nav-inner-container">
+      <button class="nav-item active" onclick="switchTab('calendar')">
+        <i class="fa-regular fa-calendar-days"></i>
+        <span>Calendar</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('timeline')">
+        <i class="fa-solid fa-book-open"></i>
+        <span>Timeline</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('tasks')">
+        <i class="fa-solid fa-square-check"></i>
+        <span>Tasks</span>
+      </button>
+      <button class="nav-item" onclick="switchTab('overview')">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <span>Overview</span>
+      </button>
+    </div>
+  </nav>
 </div>
-<!-- 하단 메뉴 바 -->
-<nav class="bottom-nav">
-  <div class="nav-inner-container">
-    <button class="nav-item active" onclick="switchTab('calendar')">
-      <i class="fa-regular fa-calendar-days"></i>
-      <span>Calendar</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('timeline')">
-      <i class="fa-solid fa-book-open"></i>
-      <span>Timeline</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('tasks')">
-      <i class="fa-solid fa-square-check"></i>
-      <span>Tasks</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('overview')">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      <span>Overview</span>
-    </button>
-  </div>
-</nav>
 
 <!-- [모달 1] 일기 작성 모달 -->
 <div class="modal-overlay" id="diary-modal">

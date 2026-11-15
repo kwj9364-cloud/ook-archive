@@ -19,64 +19,67 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Firebase SDK 로드 -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <style>
     :root {
-      --bg: #ffffff;
-      --card-bg: #f8f8fa;
-      --card-inner: #f0f0f4;
-      --text-main: #111111;
-      --text-sub: #8e8e93;
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --card-inner: #f2f2f5;
+      --text-main: #141416;
+      --text-sub: #8a8a93;
       --accent-blue: #007aff;
+      --accent-warm: #ff6b4a;
       --border-subtle: rgba(0, 0, 0, 0.06);
-      --app-outer-bg: #ebebef;
       --modal-bg: #ffffff;
-      --pill-bg: #ffffff;
-      --nav-glass: rgba(255, 255, 255, 0.94);
-      --header-glass: rgba(255, 255, 255, 0.92);
-      --radius-sm: 12px;
-      --radius-md: 18px;
-      --radius-lg: 24px;
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.03);
+      --pill-bg: #f5f5f7;
+      --nav-glass: rgba(255, 255, 255, 0.92);
+      --header-glass: rgba(250, 250, 250, 0.9);
+      --radius-sm: 14px;
+      --radius-md: 20px;
+      --radius-lg: 26px;
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.035);
+      --shadow-md: 0 10px 28px rgba(0, 0, 0, 0.06);
       --weekend-sat: #007aff;
       --weekend-sun: #ff3b30;
     }
 
     body.theme-dark {
-      --bg: #141416;
-      --card-bg: #1e1e24;
-      --card-inner: #282830;
+      --bg: #111113;
+      --card-bg: #1b1b1f;
+      --card-inner: #25252b;
       --text-main: #f5f5f7;
-      --text-sub: #86868b;
+      --text-sub: #888890;
       --accent-blue: #0a84ff;
+      --accent-warm: #ff7a59;
       --border-subtle: rgba(255, 255, 255, 0.08);
-      --app-outer-bg: #09090a;
-      --modal-bg: #1c1c1e;
-      --pill-bg: #2c2c2e;
-      --nav-glass: rgba(20, 20, 22, 0.94);
-      --header-glass: rgba(20, 20, 22, 0.92);
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+      --modal-bg: #1b1b1f;
+      --pill-bg: #26262c;
+      --nav-glass: rgba(17, 17, 19, 0.92);
+      --header-glass: rgba(17, 17, 19, 0.9);
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+      --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.35);
       --weekend-sat: #0a84ff;
       --weekend-sun: #ff453a;
     }
 
     body.theme-sepia {
-      --bg: #f7f3e9;
-      --card-bg: #ece6d8;
-      --card-inner: #e2dbcc;
-      --text-main: #3d352e;
-      --text-sub: #8c8275;
+      --bg: #f6f2e9;
+      --card-bg: #fdfaf3;
+      --card-inner: #ebe4d5;
+      --text-main: #383028;
+      --text-sub: #8c8173;
       --accent-blue: #a36f4c;
-      --border-subtle: rgba(61, 53, 46, 0.1);
-      --app-outer-bg: #ded7c8;
-      --modal-bg: #f7f3e9;
-      --pill-bg: #fdfaf3;
-      --nav-glass: rgba(247, 243, 233, 0.94);
-      --header-glass: rgba(247, 243, 233, 0.94);
-      --shadow-sm: 0 2px 8px rgba(61, 53, 46, 0.05);
+      --accent-warm: #c96a4b;
+      --border-subtle: rgba(56, 48, 40, 0.09);
+      --modal-bg: #fdfaf3;
+      --pill-bg: #f2ece0;
+      --nav-glass: rgba(246, 242, 233, 0.94);
+      --header-glass: rgba(246, 242, 233, 0.92);
+      --shadow-sm: 0 4px 14px rgba(56, 48, 40, 0.04);
+      --shadow-md: 0 10px 26px rgba(56, 48, 40, 0.07);
       --weekend-sat: #6b8299;
       --weekend-sun: #b85d43;
     }
@@ -126,7 +129,7 @@
     main {
       flex: 1;
       height: auto;
-      padding: calc(env(safe-area-inset-top, 0px) + 16px) 18px 20px;
+      padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 24px;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
@@ -134,7 +137,7 @@
 
     .tab-view {
       display: none;
-      animation: fadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .tab-view.active { display: block; }
 
@@ -143,6 +146,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Sticky Header */
     .sticky-top-header {
       position: sticky;
       top: 0;
@@ -151,7 +155,7 @@
       -webkit-backdrop-filter: blur(20px);
       z-index: 40;
       margin: 0 0 16px 0;
-      padding: 12px 0 14px 0;
+      padding: 10px 0 14px 0;
       border-bottom: 1px solid var(--border-subtle);
     }
     .view-large-header {
@@ -160,7 +164,7 @@
       align-items: flex-end;
     }
     .view-caption {
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 700;
       color: var(--text-sub);
       margin-bottom: 2px;
@@ -184,9 +188,9 @@
       box-shadow: 0 0 6px #f59e0b;
     }
     .view-title {
-      font-size: 2.15rem;
+      font-size: 2.1rem;
       font-weight: 800;
-      letter-spacing: -1.2px;
+      letter-spacing: -1.1px;
       line-height: 1.05;
       padding-bottom: 1px;
     }
@@ -197,6 +201,7 @@
       border-radius: 50%;
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -207,50 +212,56 @@
     }
     .circle-icon-btn:active { transform: scale(0.90); }
 
+    /* DayPic Style Photo Calendar */
     .cal-weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       text-align: center;
-      margin-top: 4px;
+      margin-top: 6px;
       margin-bottom: 10px;
     }
-    .cal-weekdays span { font-size: 0.78rem; font-weight: 700; color: var(--text-sub); }
+    .cal-weekdays span { font-size: 0.72rem; font-weight: 700; color: var(--text-sub); letter-spacing: 0.4px; }
     .cal-weekdays span:first-child { color: var(--weekend-sun); }
     .cal-weekdays span:last-child { color: var(--weekend-sat); }
 
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
     .cal-cell {
-      height: 58px;
+      aspect-ratio: 0.72;
+      min-height: 66px;
       background: var(--card-bg);
-      border-radius: var(--radius-sm);
+      border-radius: 13px;
       border: 1px solid var(--border-subtle);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.025);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 5px;
+      justify-content: space-between;
+      padding: 6px 2px 6px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
-      transition: transform 0.1s ease;
+      transition: transform 0.14s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.14s ease;
     }
-    .cal-cell:active { transform: scale(0.94); }
-    .cal-cell.empty { background: transparent; border-color: transparent; cursor: default; }
-    .cal-cell .day-num { font-size: 0.85rem; font-weight: 600; z-index: 2; }
+    .cal-cell:active { transform: scale(0.92); }
+    .cal-cell.empty { background: transparent; border-color: transparent; box-shadow: none; cursor: default; }
+    .cal-cell .day-num { font-size: 0.78rem; font-weight: 700; z-index: 2; line-height: 1; }
     .cal-cell.is-sun .day-num { color: var(--weekend-sun); }
     .cal-cell.is-sat .day-num { color: var(--weekend-sat); }
 
+    .cal-cell.today {
+      border: 1.5px solid var(--text-main);
+    }
     .cal-cell.today .day-num {
       background: var(--text-main);
       color: var(--bg) !important;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
+      padding: 3px 6px;
+      border-radius: 8px;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
-      font-size: 0.78rem;
+      font-weight: 800;
+      font-size: 0.72rem;
+      margin-top: -2px;
     }
     .cal-cell .thumb-img {
       position: absolute;
@@ -258,30 +269,60 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.88;
       z-index: 1;
+    }
+    .cal-cell.has-thumb {
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
     .cal-cell.has-thumb::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.22);
+      background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.02) 48%, rgba(0,0,0,0.32) 100%);
       z-index: 1;
     }
     .cal-cell.has-thumb .day-num {
       color: #ffffff !important;
       font-weight: 800;
-      text-shadow: 0 1px 3px rgba(0,0,0,0.85);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.65);
     }
-    .cal-schedule-dots { position: absolute; bottom: 4px; display: flex; gap: 3px; z-index: 2; }
+    .cal-cell.has-thumb.today .day-num {
+      background: rgba(255,255,255,0.92);
+      color: #111111 !important;
+      text-shadow: none;
+    }
+    .cal-cell-emoji-hint {
+      font-size: 1.25rem;
+      z-index: 2;
+      margin-bottom: 3px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.06));
+    }
+    .cal-photo-count-badge {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      background: rgba(0,0,0,0.52);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 8px;
+      z-index: 2;
+    }
+    .cal-schedule-dots { position: absolute; bottom: 5px; display: flex; gap: 3px; z-index: 2; }
     .cal-dot { width: 4px; height: 4px; border-radius: 50%; background-color: var(--accent-blue); }
     .cal-cell.has-thumb .cal-dot { background-color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
 
+    /* Upcoming Schedules */
     .schedule-card-mini {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
       border-radius: var(--radius-sm);
-      padding: 10px 12px;
+      padding: 11px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -305,48 +346,77 @@
       font-size: 0.72rem;
       font-weight: 700;
       padding: 3px 8px;
-      border-radius: 12px;
-      background: var(--border-subtle);
+      border-radius: 10px;
+      background: var(--pill-bg);
       color: var(--text-sub);
       letter-spacing: -0.3px;
       flex-shrink: 0;
     }
     .dday-badge.highlight { background: var(--accent-blue); color: #fff; }
 
-    .cal-timeline-section { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
-    .cal-timeline-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.3px; }
+    /* DayPic Style Feed Cards with Horizontal Photo Swipe */
+    .cal-timeline-section { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
+    .cal-timeline-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; justify-content: space-between; }
     .cal-timeline-card {
       background: var(--card-bg);
-      border-radius: var(--radius-md);
+      border-radius: 24px;
       border: 1px solid var(--border-subtle);
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      height: 250px;
       cursor: pointer;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.12s ease;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.14s ease;
     }
-    .cal-timeline-card:active { transform: scale(0.98); }
-    .cal-card-photo-box {
-      height: 60%;
+    .cal-timeline-card:active { transform: scale(0.985); }
+    .cal-card-photo-scroller {
       width: 100%;
-      background: var(--border-subtle);
+      height: 240px;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      background: var(--card-inner);
       position: relative;
-      overflow: hidden;
+    }
+    .cal-card-photo-scroller::-webkit-scrollbar { display: none; }
+    .cal-card-photo-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    .cal-card-photo-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .cal-card-placeholder-box {
+      height: 130px;
+      width: 100%;
+      background: var(--card-inner);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 3.2rem;
     }
-    .cal-card-photo-box img { width: 100%; height: 100%; object-fit: cover; }
-    .cal-card-placeholder-emoji { font-size: 3.2rem; }
     .cal-card-content {
-      height: 40%;
-      padding: 10px 14px;
+      padding: 15px 18px 18px;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      gap: 5px;
+      gap: 8px;
+    }
+    .cal-card-date-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cal-card-date-label {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
     }
     .badge-wrap {
       display: flex;
@@ -359,10 +429,10 @@
     }
     .badge-wrap::-webkit-scrollbar { display: none; }
     .badge-pill {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 600;
-      padding: 4px 8px;
-      border-radius: 6px;
+      padding: 4px 9px;
+      border-radius: 9px;
       background: var(--pill-bg);
       color: var(--text-main);
       display: inline-flex;
@@ -372,6 +442,7 @@
       flex-shrink: 0;
     }
 
+    /* Timeline Tab */
     .btn-pill-add {
       background: var(--text-main);
       color: var(--bg);
@@ -379,7 +450,7 @@
       padding: 8px 16px;
       border-radius: 20px;
       font-size: 0.85rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: transform 0.12s ease;
       white-space: nowrap;
@@ -419,12 +490,12 @@
     .showcase-card {
       flex: 0 0 150px;
       height: 225px;
-      border-radius: 16px;
+      border-radius: 18px;
       overflow: hidden;
       position: relative;
       background: var(--card-inner);
       border: 1px solid rgba(255,255,255,0.18);
-      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+      box-shadow: var(--shadow-md);
       scroll-snap-align: start;
       cursor: pointer;
       display: flex;
@@ -518,112 +589,114 @@
       margin-bottom: 4px;
       scrollbar-width: none;
     }
-    .stat-filter-row::-webkit-scrollbar { display: none; }
-    .stat-filter-chip {
-      background: var(--card-bg);
+    /* Diary Read View (DayPic Editorial Polaroid Card Style) */
+    .diary-read-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .diary-read-gallery-outer {
+      position: relative;
+      width: 100%;
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
-      padding: 7px 12px;
-      border-radius: 12px;
+      box-shadow: var(--shadow-md);
+    }
+    .diary-read-gallery {
+      width: 100%;
+      height: 310px;
+      overflow-x: auto;
+      display: flex;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+    .diary-read-gallery::-webkit-scrollbar { display: none; }
+    .diary-read-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    .diary-read-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.42);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-sub);
-      display: inline-flex;
+      cursor: pointer;
+      z-index: 10;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+    .gallery-nav-arrow:active { transform: translateY(-50%) scale(0.9); }
+    .gallery-nav-arrow.prev { left: 10px; }
+    .gallery-nav-arrow.next { right: 10px; }
+    .gallery-dots-bar {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 10;
+    }
+    .gallery-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.45);
+      transition: all 0.2s ease;
+    }
+    .gallery-dot.active {
+      width: 14px;
+      border-radius: 4px;
+      background: #ffffff;
+    }
+    .diary-read-meta-row {
+      display: flex;
+      flex-wrap: wrap;
       align-items: center;
       gap: 6px;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: all 0.12s ease;
     }
-    .stat-filter-chip.active { background: var(--text-main); color: var(--bg); border-color: var(--text-main); }
-    .stat-filter-chip:active { transform: scale(0.95); }
-
-    .archive-list { display: flex; flex-direction: column; gap: 12px; }
-    .archive-card {
+    .diary-read-essay-box {
       background: var(--card-bg);
-      border-radius: var(--radius-md);
+      border-radius: 18px;
+      padding: 20px 18px;
+      font-size: 0.96rem;
+      line-height: 1.72;
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-break: keep-all;
+      min-height: 96px;
       border: 1px solid var(--border-subtle);
-      padding: 14px;
-      display: flex;
-      gap: 12px;
       box-shadow: var(--shadow-sm);
-      transition: transform 0.12s ease;
-    }
-    .archive-card:active { transform: scale(0.99); }
-    .archive-visual {
-      width: 76px;
-      height: 104px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--border-subtle);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border-subtle);
-    }
-    .archive-visual img { width: 100%; height: 100%; object-fit: cover; }
-    .archive-visual .card-emoji { font-size: 2.2rem; }
-    .archive-content { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .archive-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-    .archive-tag-group { display: flex; align-items: center; gap: 5px; }
-    .archive-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: var(--pill-bg);
-      padding: 2px 7px;
-      border-radius: 6px;
-      color: var(--text-main);
-      border: 1px solid var(--border-subtle);
-    }
-    .archive-rating-pill {
-      font-size: 0.72rem;
-      font-weight: 700;
-      background: rgba(255, 179, 0, 0.15);
-      color: #d97706;
-      padding: 2px 6px;
-      border-radius: 6px;
-    }
-    .archive-actions { display: flex; gap: 8px; }
-    .archive-actions button { background: none; border: none; color: var(--text-sub); cursor: pointer; }
-
-    .btn-clear-done {
-      background: transparent;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-sub);
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.12s ease;
-      white-space: nowrap;
-      flex-shrink: 0;
-      height: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .btn-clear-done:active { transform: scale(0.94); }
-
-    .task-input-bar { 
-      display: flex; 
-      gap: 8px; 
-      margin-top: 4px;
-      margin-bottom: 18px; 
-    }
-    .task-input-field {
-      flex: 1;
-      background: var(--card-bg);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      padding: 12px 14px;
-      font-size: 16px;
-      outline: none;
-      color: var(--text-main);
     }
     .task-add-btn {
-      width: 44px;
-      height: 44px;
+      width: 46px;
+      height: 46px;
       border-radius: var(--radius-sm);
       background: var(--text-main);
       color: var(--bg);
@@ -637,8 +710,9 @@
     .task-item {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
       border-radius: var(--radius-sm);
-      padding: 12px 14px;
+      padding: 13px 14px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -663,34 +737,36 @@
     .task-text { flex: 1; font-size: 0.92rem; }
     .task-del-btn { background: none; border: none; color: var(--text-sub); cursor: pointer; }
 
+    /* Overview Tab: Mode Selector */
     .overview-mode-selector {
       display: flex;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 3px;
-      margin-top: 4px;
+      margin-top: 2px;
       margin-bottom: 16px;
       gap: 3px;
     }
     .overview-mode-btn {
       flex: 1;
-      padding: 7px 0;
+      padding: 8px 0;
       border: none;
       background: transparent;
-      border-radius: 9px;
+      border-radius: 11px;
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-sub);
       cursor: pointer;
       transition: all 0.15s ease;
     }
     .overview-mode-btn.active {
-      background: var(--bg);
+      background: var(--card-bg);
       color: var(--text-main);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
+    /* 1) Weekly Accordion */
     .week-nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .week-nav-title { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.3px; }
     .week-nav-btn {
@@ -707,10 +783,10 @@
     }
     .accordion-container {
       display: flex;
-      height: 470px;
+      height: 460px;
       gap: 5px;
       width: 100%;
-      border-radius: 20px;
+      border-radius: 22px;
       overflow: hidden;
       background: var(--card-inner);
       padding: 6px;
@@ -719,7 +795,7 @@
     .acc-slice {
       flex: 1;
       height: 100%;
-      border-radius: 14px;
+      border-radius: 15px;
       position: relative;
       overflow: hidden;
       cursor: pointer;
@@ -737,7 +813,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.85) 100%);
       z-index: 1;
     }
     .acc-slice.expanded { flex: 4.5; border-color: var(--accent-blue); }
@@ -765,139 +841,198 @@
       white-space: nowrap;
     }
 
-    .timeline-stream-wrap {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      padding-left: 24px;
-      margin-top: 10px;
-    }
-    .timeline-stream-wrap::before {
-      content: "";
-      position: absolute;
-      left: 9px;
-      top: 14px;
-      bottom: 20px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--accent-blue) 0%, var(--border-subtle) 100%);
-    }
-    .stream-card-item {
+    /* 2) DayPic Monthly Photo Collage & Recap Report */
+    .collage-poster-card {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 16px;
-      margin-bottom: 12px;
+      border-radius: 24px;
+      padding: 18px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .collage-poster-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+    .collage-poster-month {
+      font-size: 1.45rem;
+      font-weight: 900;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+    .collage-poster-sub {
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .collage-save-btn {
+      background: var(--text-main);
+      color: var(--bg);
+      border: none;
+      padding: 7px 12px;
+      border-radius: 12px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+    .collage-save-btn:active { transform: scale(0.94); }
+
+    .collage-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .collage-photo-grid.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .collage-photo-grid.grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .collage-tile {
+      aspect-ratio: 1;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
-      box-shadow: var(--shadow-sm);
-    }
-    .stream-node-dot {
-      position: absolute;
-      left: -20px;
-      top: 20px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--bg);
-      border: 2px solid var(--accent-blue);
-      box-shadow: 0 0 6px var(--accent-blue);
-      z-index: 2;
-    }
-    .stream-card-summary {
-      padding: 12px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-    .stream-date-badge {
-      font-size: 1.15rem;
-      font-weight: 800;
-      color: var(--accent-blue);
-      letter-spacing: -0.5px;
-    }
-    .stream-summary-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      min-width: 0;
-    }
-    .stream-headline {
-      font-size: 0.92rem;
-      font-weight: 700;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: var(--text-main);
-    }
-    .stream-tags { font-size: 0.75rem; color: var(--text-sub); }
-    .stream-mini-thumb {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 1px solid var(--border-subtle);
-    }
-    .stream-mini-emoji {
-      width: 42px;
-      height: 42px;
-      border-radius: 8px;
-      background: var(--card-inner);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
-    .stream-card-expansion {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.35s ease;
-      background: var(--card-inner);
-      padding: 0 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .stream-card-item.open .stream-card-expansion {
-      max-height: 460px;
-      padding: 14px;
-      border-top: 1px solid var(--border-subtle);
-    }
-    .expansion-multi-photos {
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .expansion-multi-photos::-webkit-scrollbar { display: none; }
-    .expansion-multi-photos img {
-      height: 160px;
       border-radius: 10px;
+      background: var(--card-inner);
+      cursor: pointer;
+    }
+    .collage-tile img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      flex-shrink: 0;
+      transition: transform 0.2s ease;
     }
-    .expansion-body-text {
-      font-size: 0.85rem;
-      line-height: 1.45;
-      color: var(--text-main);
-    }
-    .expansion-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      padding-top: 6px;
-      border-top: 1px dashed var(--border-subtle);
+    .collage-tile:active img { transform: scale(0.95); }
+    .collage-tile-date {
+      position: absolute;
+      bottom: 5px;
+      left: 6px;
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      padding: 1px 5px;
+      border-radius: 5px;
     }
 
+    /* Monthly Recap Report Cards */
+    .recap-section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 18px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .recap-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .recap-title {
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .recap-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .recap-stat-box {
+      background: var(--card-inner);
+      border-radius: 14px;
+      padding: 12px 8px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .recap-stat-num {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--text-main);
+      letter-spacing: -0.5px;
+    }
+    .recap-stat-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-sub);
+    }
+    .recap-progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .recap-progress-bar-bg {
+      width: 100%;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--card-inner);
+      overflow: hidden;
+    }
+    .recap-progress-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-warm));
+      transition: width 0.4s ease;
+    }
+    .recap-rank-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-top: 4px;
+      border-top: 1px dashed var(--border-subtle);
+    }
+    .recap-rank-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+    .recap-pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .recap-rank-pill {
+      background: var(--pill-bg);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 11px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .recap-rank-count {
+      font-size: 0.72rem;
+      color: var(--accent-blue);
+      font-weight: 800;
+    }
+
+    /* 3) Yearly 365 Matrix */
     .matrix-board-box {
       background: var(--card-bg);
       border: 1px solid var(--border-subtle);
-      border-radius: 20px;
+      box-shadow: var(--shadow-sm);
+      border-radius: 22px;
       padding: 18px;
       display: flex;
       flex-direction: column;
@@ -960,6 +1095,7 @@
     }
     .inspector-meta { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 
+    /* Chip Selectors in Modals */
     .pool-section { display: flex; flex-direction: column; gap: 8px; }
     .pool-header { display: flex; justify-content: space-between; align-items: center; }
     .pool-label { font-size: 0.8rem; color: var(--text-sub); font-weight: 600; }
@@ -993,10 +1129,10 @@
       align-items: center;
       gap: 5px;
       padding: 6px 10px;
-      border-radius: 8px;
+      border-radius: 9px;
       font-size: 0.82rem;
       font-weight: 600;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       color: var(--text-sub);
       cursor: pointer;
@@ -1020,8 +1156,8 @@
       padding: 8px 10px;
       font-size: 16px;
       border: 1px dashed var(--border-subtle);
-      background: var(--card-bg);
-      border-radius: 8px;
+      background: var(--card-inner);
+      border-radius: 9px;
       outline: none;
       color: var(--text-main);
     }
@@ -1030,19 +1166,20 @@
       font-size: 0.8rem;
       font-weight: 600;
       border: none;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
-      border-radius: 8px;
+      border-radius: 9px;
       color: var(--text-main);
       cursor: pointer;
     }
 
+    /* Modals & Bottom Sheets */
     .modal-overlay {
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.45);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       z-index: 1000;
       display: none;
       justify-content: center;
@@ -1091,7 +1228,7 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -1102,7 +1239,7 @@
     }
 
     .clean-input {
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 11px 13px;
@@ -1117,7 +1254,7 @@
       appearance: none;
     }
     .clean-textarea {
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 11px 13px;
@@ -1137,7 +1274,7 @@
       border-radius: 14px;
       padding: 13px;
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: transform 0.12s ease;
       font-family: inherit;
@@ -1150,7 +1287,7 @@
     .unified-visual-box {
       width: 96px;
       height: 124px;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border-radius: 14px;
       border: 1px solid var(--border-subtle);
       display: flex;
@@ -1167,7 +1304,7 @@
     .visual-action-btns button, .visual-action-btns label {
       flex: 1;
       text-align: center;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 4px 2px;
@@ -1178,7 +1315,7 @@
     }
     .emoji-popover {
       display: none;
-      background: var(--card-bg);
+      background: var(--card-inner);
       border-radius: var(--radius-sm);
       border: 1px solid var(--border-subtle);
       padding: 8px;
@@ -1236,7 +1373,7 @@
       padding: 12px 8px;
       border-radius: 12px;
       border: 1px solid var(--border-subtle);
-      background: var(--card-bg);
+      background: var(--card-inner);
       color: var(--text-main);
       font-size: 0.85rem;
       font-weight: 600;
@@ -1248,7 +1385,7 @@
     }
     .theme-btn.active { border-color: var(--accent-blue); box-shadow: 0 0 0 2px var(--accent-blue); }
     .settings-item {
-      background: var(--card-bg);
+      background: var(--card-inner);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
       padding: 14px;
@@ -1261,7 +1398,7 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: var(--pill-bg);
+      background: var(--card-bg);
       border: 1px solid var(--border-subtle);
       border-radius: 10px;
       padding: 12px;
@@ -1271,6 +1408,7 @@
       cursor: pointer;
     }
 
+    /* Ticket Popup Modal */
     .ticket-modal-overlay {
       position: fixed;
       inset: 0;
@@ -1301,7 +1439,7 @@
       width: 100%;
       height: 300px;
       position: relative;
-      background: var(--border-subtle);
+      background: var(--card-inner);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1347,6 +1485,83 @@
       background: var(--text-main);
     }
 
+    /* Diary Read View (Editorial Card Style) */
+    .diary-read-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .diary-read-gallery {
+      width: 100%;
+      height: 260px;
+      border-radius: 18px;
+      overflow-x: auto;
+      display: flex;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+      background: var(--card-inner);
+      position: relative;
+      border: 1px solid var(--border-subtle);
+    }
+    .diary-read-gallery::-webkit-scrollbar { display: none; }
+    .diary-read-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      position: relative;
+    }
+    .diary-read-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .diary-read-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+    .diary-read-essay-box {
+      background: var(--card-inner);
+      border-radius: 16px;
+      padding: 18px 16px;
+      font-size: 0.96rem;
+      line-height: 1.65;
+      color: var(--text-main);
+      white-space: pre-wrap;
+      word-break: keep-all;
+      min-height: 90px;
+      border: 1px solid var(--border-subtle);
+    }
+    .diary-prompt-banner {
+      background: var(--card-inner);
+      border-left: 3px solid var(--accent-blue);
+      padding: 10px 12px;
+      border-radius: 0 10px 10px 0;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-header-edit {
+      background: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 5px 11px;
+      border-radius: 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .btn-header-edit:active { transform: scale(0.94); }
+
+    /* Bottom Navigation */
     nav.bottom-nav {
       width: 100%;
       flex-shrink: 0;
@@ -1422,7 +1637,10 @@
       </div>
 
       <div class="cal-timeline-section">
-        <div class="cal-timeline-title">나의 하루 기록</div>
+        <div class="cal-timeline-title">
+          <span>나의 하루 기록</span>
+          <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-sub);" id="cal-month-record-badge">0개의 순간</span>
+        </div>
         <div id="cal-timeline-feed"></div>
       </div>
     </div>
@@ -1479,34 +1697,90 @@
       <div class="sticky-top-header">
         <div class="view-large-header">
           <div>
-            <div class="view-caption">Moments</div>
+            <div class="view-caption">Moments & Recap</div>
             <div class="view-title">Overview</div>
           </div>
         </div>
       </div>
 
       <div class="overview-mode-selector">
-        <button class="overview-mode-btn active" id="ov-btn-week" onclick="switchOverviewMode('week')">주간 아코디언</button>
-        <button class="overview-mode-btn" id="ov-btn-month" onclick="switchOverviewMode('month')">월간 인덱스</button>
+        <button class="overview-mode-btn active" id="ov-btn-collage" onclick="switchOverviewMode('collage')">월간 콜라주</button>
+        <button class="overview-mode-btn" id="ov-btn-week" onclick="switchOverviewMode('week')">주간 아코디언</button>
         <button class="overview-mode-btn" id="ov-btn-year" onclick="switchOverviewMode('year')">연간 365</button>
       </div>
 
-      <!-- 1) 주간 아코디언 -->
-      <div id="ov-panel-week">
+      <!-- 1) 월간 포토 콜라주 & 월말 결산 리포트 -->
+      <div id="ov-panel-collage">
+        <div class="week-nav-bar">
+          <button class="week-nav-btn" onclick="shiftMonthInOverview(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="week-nav-title" id="collage-nav-title">2026년 11월</div>
+          <button class="week-nav-btn" onclick="shiftMonthInOverview(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+        <!-- 포토 콜라주 카드 -->
+        <div class="collage-poster-card">
+          <div class="collage-poster-header">
+            <div>
+              <div class="collage-poster-sub" id="collage-poster-sub">2026 PHOTO ARCHIVE</div>
+              <div class="collage-poster-month" id="collage-poster-month">November</div>
+            </div>
+            <button class="collage-save-btn" onclick="downloadMonthlyCollagePoster()" id="btn-download-collage">
+              <i class="fa-solid fa-download"></i> 포스터 저장
+            </button>
+          </div>
+          <div id="collage-grid-container"></div>
+        </div>
+
+        <!-- 월말 결산 리포트 카드 -->
+        <div class="recap-section-card" id="monthly-recap-card">
+          <div class="recap-header-row">
+            <div class="recap-title">
+              <i class="fa-solid fa-chart-pie" style="color: var(--accent-warm);"></i> 월말 결산 리포트
+            </div>
+            <span style="font-size: 0.74rem; font-weight: 700; color: var(--accent-blue);" id="recap-rate-badge">달성률 0%</span>
+          </div>
+
+          <div class="recap-progress-wrap">
+            <div class="recap-progress-bar-bg">
+              <div class="recap-progress-bar-fill" id="recap-progress-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+
+          <div class="recap-stat-grid">
+            <div class="recap-stat-box">
+              <div class="recap-stat-num" id="recap-days-count">0일</div>
+              <div class="recap-stat-label">기록한 날</div>
+            </div>
+            <div class="recap-stat-box">
+              <div class="recap-stat-num" id="recap-photos-count">0장</div>
+              <div class="recap-stat-label">남긴 사진</div>
+            </div>
+            <div class="recap-stat-box">
+              <div class="recap-stat-num" id="recap-archive-count">0건</div>
+              <div class="recap-stat-label">문화/운동 기록</div>
+            </div>
+          </div>
+
+          <div class="recap-rank-group">
+            <div class="recap-rank-label">이달에 가장 많이 함께한 사람 (With TOP)</div>
+            <div class="recap-pill-row" id="recap-top-with"></div>
+          </div>
+
+          <div class="recap-rank-group">
+            <div class="recap-rank-label">이달의 무드 & 활동 이모지</div>
+            <div class="recap-pill-row" id="recap-top-emojis"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2) 주간 아코디언 -->
+      <div id="ov-panel-week" style="display: none;">
         <div class="week-nav-bar">
           <button class="week-nav-btn" onclick="shiftWeek(-1)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="week-nav-title" id="week-nav-title">2026년 11월</div>
           <button class="week-nav-btn" onclick="shiftWeek(1)"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
         <div class="accordion-container" id="week-accordion-box"></div>
-      </div>
-
-      <!-- 2) 월간 시네마 인덱스 -->
-      <div id="ov-panel-month" style="display: none;">
-        <div style="font-size:0.82rem; color:var(--text-sub); margin-bottom:8px;" id="month-stream-caption">
-          이 달의 타임라인 · 카드를 탭하면 시네마 액자가 열립니다.
-        </div>
-        <div class="timeline-stream-wrap" id="month-stream-feed"></div>
       </div>
 
       <!-- 3) 연간 365 잔디 매트릭스 -->
@@ -1557,7 +1831,7 @@
   </nav>
 </div>
 
-  <!-- [모달 1] 일기 작성 모달 -->
+<!-- [모달 1] 일기 열람 및 작성 모달 (Read / Edit 분리) -->
 <div class="modal-overlay" id="diary-modal">
   <div class="bottom-sheet" id="diary-sheet">
     <div class="sheet-header">
@@ -1567,52 +1841,76 @@
         <button class="day-shift-btn" onclick="navigateDay(1)"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       <div style="display: flex; align-items: center; gap: 6px;">
+        <button class="btn-header-edit" id="btn-switch-to-edit" onclick="switchDiaryModalMode('edit')" style="display: none;">
+          <i class="fa-solid fa-pen"></i> 수정
+        </button>
         <button class="circle-icon-btn" style="width: 32px; height: 32px;" onclick="openScheduleModalFromDiary()" title="일정 관리"><i class="fa-regular fa-calendar-plus"></i></button>
         <button class="sheet-close-btn" onclick="closeDiaryModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
     </div>
 
-    <div id="diary-schedule-recommend" style="display: none;"></div>
-
-    <div>
-      <label style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600; display: block; margin-bottom: 6px;">사진 (최대 10장 · 무제한 클라우드 저장)</label>
-      <div class="photo-row-scroller" id="diary-photo-scroller">
-        <label class="unified-visual-box" style="width: 72px; height: 72px; border-radius: 10px; cursor: pointer;">
-          <i class="fa-solid fa-camera"></i>
-          <input type="file" accept="image/*" multiple style="display: none;" onchange="handleDiaryPhotos(event)">
-        </label>
+    <!-- [VIEW 1] 감성 일기장 열람(Read) 화면 -->
+    <div id="diary-read-view" class="diary-read-container" style="display: none;">
+      <div id="diary-read-gallery-wrap"></div>
+      <div class="diary-read-meta-row" id="diary-read-meta"></div>
+      <div class="diary-read-essay-box" id="diary-read-essay"></div>
+      <div style="display: flex; gap: 8px; margin-top: 4px;">
+        <button class="btn-submit-sheet" style="flex: 1; background: var(--card-inner); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="switchDiaryModalMode('edit')">
+          <i class="fa-solid fa-pen-to-square"></i> 내용 수정하기
+        </button>
+        <button class="btn-submit-sheet ready" style="flex: 1;" onclick="closeDiaryModal()">닫기</button>
       </div>
     </div>
 
-    <div class="pool-section">
-      <div class="pool-header">
-        <label class="pool-label">With</label>
-        <span class="pool-caption">탭하여 선택</span>
-      </div>
-      <div class="chip-selector-box" id="diary-badge-pool-chips"></div>
-      <div class="pool-add-row">
-        <input type="text" id="new-badge-input" class="pool-add-input" placeholder="+ 새 With 추가" onkeydown="handleNewBadgeKey(event)">
-        <button type="button" class="pool-add-btn" onclick="addNewCustomBadge()">추가</button>
-      </div>
-    </div>
+    <!-- [VIEW 2] 일기 작성 및 수정(Edit) 화면 -->
+    <div id="diary-edit-view" style="display: flex; flex-direction: column; gap: 14px;">
+      <div id="diary-schedule-recommend" style="display: none;"></div>
 
-    <div class="pool-section">
-      <div class="pool-header">
-        <label class="pool-label">Emoji</label>
-        <span class="pool-caption">탭하여 선택</span>
+      <div class="diary-prompt-banner" id="diary-prompt-box">
+        <span id="diary-prompt-text">✨ 오늘 가장 기억에 남는 장면은 무엇인가요?</span>
+        <button type="button" style="background:none; border:none; color:var(--accent-blue); font-size:0.75rem; font-weight:700; cursor:pointer; flex-shrink:0;" onclick="refreshDiaryPrompt()">다른 질문</button>
       </div>
-      <div class="emoji-grid-selector-box" id="diary-emoji-pool-chips"></div>
-      <div class="pool-add-row">
-        <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가 (예: 🏕️)" onkeydown="handleNewEmojiKey(event)">
-        <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
+
+      <div>
+        <label style="font-size: 0.8rem; color: var(--text-sub); font-weight: 600; display: block; margin-bottom: 6px;">사진 (최대 10장 · 무제한 클라우드 저장)</label>
+        <div class="photo-row-scroller" id="diary-photo-scroller">
+          <label class="unified-visual-box" style="width: 72px; height: 72px; border-radius: 10px; cursor: pointer;">
+            <i class="fa-solid fa-camera"></i>
+            <input type="file" accept="image/*" multiple style="display: none;" onchange="handleDiaryPhotos(event)">
+          </label>
+        </div>
       </div>
-    </div>
 
-    <textarea class="clean-textarea" id="diary-input-text" placeholder="글은 비워두고 사진이나 뱃지만 남겨도 완벽해요." style="min-height: 100px;"></textarea>
+      <div class="pool-section">
+        <div class="pool-header">
+          <label class="pool-label">With</label>
+          <span class="pool-caption">탭하여 선택</span>
+        </div>
+        <div class="chip-selector-box" id="diary-badge-pool-chips"></div>
+        <div class="pool-add-row">
+          <input type="text" id="new-badge-input" class="pool-add-input" placeholder="+ 새 With 추가" onkeydown="handleNewBadgeKey(event)">
+          <button type="button" class="pool-add-btn" onclick="addNewCustomBadge()">추가</button>
+        </div>
+      </div>
 
-    <div style="display: flex; gap: 8px;">
-      <button class="btn-submit-sheet" style="flex:1; background: #ffebeb; color: #ff3b30;" onclick="deleteDiaryEntry()">삭제</button>
-      <button class="btn-submit-sheet ready" style="flex:2;" onclick="saveDiaryEntry()">저장</button>
+      <div class="pool-section">
+        <div class="pool-header">
+          <label class="pool-label">Emoji</label>
+          <span class="pool-caption">탭하여 선택</span>
+        </div>
+        <div class="emoji-grid-selector-box" id="diary-emoji-pool-chips"></div>
+        <div class="pool-add-row">
+          <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가 (예: 🏕️)" onkeydown="handleNewEmojiKey(event)">
+          <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
+        </div>
+      </div>
+
+      <textarea class="clean-textarea" id="diary-input-text" placeholder="오늘의 이야기를 자유롭게 적어보세요. 사진이나 이모지만 남겨도 좋아요." style="min-height: 115px; line-height: 1.6;"></textarea>
+
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-submit-sheet" id="btn-delete-diary" style="flex:1; background: #ffebeb; color: #ff3b30;" onclick="deleteDiaryEntry()">삭제</button>
+        <button class="btn-submit-sheet ready" style="flex:2;" onclick="saveDiaryEntry()">저장하기</button>
+      </div>
     </div>
   </div>
 </div>
@@ -1634,7 +1932,7 @@
     </div>
     <div id="sch-day-list" style="display: flex; flex-direction: column; gap: 6px; margin-top: 6px;"></div>
     <div style="display: flex; gap: 8px;">
-      <button class="btn-submit-sheet" style="flex: 1; background: var(--card-bg); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="closeScheduleModal()">닫기</button>
+      <button class="btn-submit-sheet" style="flex: 1; background: var(--card-inner); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="closeScheduleModal()">닫기</button>
       <button class="btn-submit-sheet ready" style="flex: 2;" onclick="saveScheduleItem()">일정 추가</button>
     </div>
   </div>
@@ -1683,7 +1981,7 @@
         <option value="3.5">★★★☆☆ 3.5 (좋았음)</option>
         <option value="3.0">★★★☆☆ 3.0 (보통)</option>
       </select>
-      <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0 10px; gap: 8px;">
+      <div style="flex: 1; display: flex; align-items: center; justify-content: center; background: var(--card-inner); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0 10px; gap: 8px;">
         <input type="checkbox" id="ar-is-showcase" style="width: 18px; height: 18px; accent-color: var(--accent-blue); cursor: pointer;">
         <label for="ar-is-showcase" style="font-size: 0.85rem; font-weight: 600; cursor: pointer;">🌟 쇼케이스 전시</label>
       </div>
@@ -1798,11 +2096,9 @@
   const IMGBB_API_KEY = "80dc0bfe7ed3d5819d0a341ebe3f7004";
 
   async function uploadToImgBB(file) {
-    // 1) 전송 속도 및 화질 밸런스를 위한 적정 리사이징 (가로 최대 1280px, 85% 화질)
     const base64DataUrl = await compressImage(file, 1280, 0.85);
     const pureBase64 = base64DataUrl.split(',')[1];
 
-    // 2) ImgBB 서버로 업로드
     const formData = new FormData();
     formData.append('key', IMGBB_API_KEY);
     formData.append('image', pureBase64);
@@ -1845,7 +2141,7 @@
   let viewDate = new Date();
   let selectedDateStr = '';
   let activeArchiveFilter = '전체';
-  let currentOverviewMode = 'week';
+  let currentOverviewMode = 'collage';
   
   let diaryStore = JSON.parse(localStorage.getItem('min_diaries') || '{}');
   let archiveStore = JSON.parse(localStorage.getItem('min_archives') || '[]');
@@ -1866,6 +2162,16 @@
   let editingArchiveId = null;
   let viewingTicketId = null;
   let inspectorSelectedDate = '';
+  let currentDiaryModalMode = 'read';
+
+  const DIARY_PROMPTS = [
+    "✨ 오늘 가장 기억에 남는 장면은 무엇인가요?",
+    "🎧 오늘의 기분과 어울리는 노래나 분위기는?",
+    "🍽️ 오늘 먹은 것 중 가장 맛있었던 음식은?",
+    "💬 오늘 나눈 대화 중 마음에 남은 한마디가 있나요?",
+    "🌿 오늘 하루 나에게 작은 선물을 준다면 무엇일까요?",
+    "📸 이 사진을 찍을 때 어떤 기분이었나요?"
+  ];
 
   const EMOJI_LIST = ['📚', '🎭', '🎬', '🏃', '🎟️', '🍿', '🧗', '🧘', '🏊', '🚴', '🏋️', '🥊', '⚽', '⚾', '🎾', '🎮', '☕', '✈️', '🎵', '🎨', '✍️', '🍺', '🏕️', '✨'];
   const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -1880,7 +2186,7 @@
       localStorage.setItem('min_user_badges', JSON.stringify(userBadgePool));
       localStorage.setItem('min_user_emojis', JSON.stringify(userEmojiPool));
     } catch (e) {
-      console.warn('LocalStorage 용량 한계 도달(클라우드 DB는 정상 저장됨):', e);
+      console.warn('LocalStorage 용량 한계 도달:', e);
     }
   }
 
@@ -2035,6 +2341,11 @@
       if (dayOfWeek === 6) cell.classList.add('is-sat');
       if (dStr === todayStr) cell.classList.add('today');
 
+      const num = document.createElement('span');
+      num.className = 'day-num';
+      num.innerText = day;
+      cell.appendChild(num);
+
       const entry = diaryStore[dStr];
       if (entry && entry.photos && entry.photos.length > 0) {
         cell.classList.add('has-thumb');
@@ -2042,12 +2353,22 @@
         img.src = entry.photos[0];
         img.className = 'thumb-img';
         cell.appendChild(img);
-      }
 
-      const num = document.createElement('span');
-      num.className = 'day-num';
-      num.innerText = day;
-      cell.appendChild(num);
+        if (entry.photos.length > 1) {
+          const cnt = document.createElement('span');
+          cnt.className = 'cal-photo-count-badge';
+          cnt.innerText = `+${entry.photos.length - 1}`;
+          cell.appendChild(cnt);
+        }
+      } else if (entry) {
+        const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+        if (emojis.length > 0) {
+          const emHint = document.createElement('span');
+          emHint.className = 'cal-cell-emoji-hint';
+          emHint.innerText = emojis[0];
+          cell.appendChild(emHint);
+        }
+      }
 
       const schedules = scheduleStore[dStr];
       if (schedules && schedules.length > 0) {
@@ -2123,6 +2444,8 @@
     container.innerHTML = '';
 
     const sortedDates = Object.keys(diaryStore).sort((a, b) => new Date(b) - new Date(a));
+    document.getElementById('cal-month-record-badge').innerText = `${sortedDates.length}개의 순간`;
+
     if (sortedDates.length === 0) {
       container.innerHTML = `<div style="background:var(--card-bg); border-radius:var(--radius-md); padding:36px 16px; text-align:center; color:var(--text-sub); font-size:0.9rem; border:1px dashed var(--border-subtle);">달력의 날짜를 눌러 첫 번째 하루를 기록해보세요.</div>`;
       return;
@@ -2132,7 +2455,7 @@
       const entry = diaryStore[dateStr];
       const [y, m, d] = dateStr.split('-').map(Number);
       const dayName = DAY_LABELS[new Date(y, m - 1, d).getDay()];
-      const firstPhoto = entry.photos && entry.photos.length > 0 ? entry.photos[0] : null;
+      const photos = entry.photos || [];
 
       const card = document.createElement('div');
       card.className = 'cal-timeline-card';
@@ -2141,9 +2464,18 @@
         openDiaryModal(dateStr);
       };
 
-      const photoHtml = firstPhoto 
-        ? `<div class="cal-card-photo-box"><img src="${firstPhoto}"></div>`
-        : `<div class="cal-card-photo-box"><span class="cal-card-placeholder-emoji">${(entry.emojis && entry.emojis[0]) || entry.emoji || '📖'}</span></div>`;
+      let photoHtml = '';
+      if (photos.length > 0) {
+        const slides = photos.map((src, idx) => `
+          <div class="cal-card-photo-slide">
+            <img src="${src}">
+            ${photos.length > 1 ? `<span class="cal-photo-count-badge" style="top:10px; right:10px; bottom:auto;">${idx + 1}/${photos.length}</span>` : ''}
+          </div>
+        `).join('');
+        photoHtml = `<div class="cal-card-photo-scroller">${slides}</div>`;
+      } else {
+        photoHtml = `<div class="cal-card-placeholder-box">${(entry.emojis && entry.emojis[0]) || entry.emoji || '📖'}</div>`;
+      }
 
       const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
       const badgePillsHtml = badges.map(b => `<span class="badge-pill">#${b}</span>`).join('');
@@ -2154,12 +2486,14 @@
       card.innerHTML = `
         ${photoHtml}
         <div class="cal-card-content">
-          <div class="badge-wrap">
-            <span class="badge-pill" style="font-weight:700;">${m}월 ${d}일 (${dayName})</span>
-            ${emojiPillsHtml}
-            ${badgePillsHtml}
+          <div class="cal-card-date-row">
+            <span class="cal-card-date-label">${m}월 ${d}일 ${dayName}요일</span>
+            <div style="display:flex; gap:4px; align-items:center;">
+              ${emojiPillsHtml}
+            </div>
           </div>
-          ${entry.text ? `<div style="font-size:0.85rem; color:var(--text-sub); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; margin-top:2px;">${entry.text}</div>` : ''}
+          ${badgePillsHtml ? `<div class="badge-wrap">${badgePillsHtml}</div>` : ''}
+          ${entry.text ? `<div style="font-size:0.9rem; line-height:1.5; color:var(--text-main); margin-top:2px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">${entry.text}</div>` : ''}
         </div>
       `;
       container.appendChild(card);
@@ -2172,25 +2506,266 @@
     renderCalendar();
   }
 
+  /* Overview Mode Switcher */
   function switchOverviewMode(mode) {
     triggerHaptic(6);
     currentOverviewMode = mode;
     document.querySelectorAll('.overview-mode-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(`ov-btn-${mode}`).classList.add('active');
 
+    document.getElementById('ov-panel-collage').style.display = (mode === 'collage') ? 'block' : 'none';
     document.getElementById('ov-panel-week').style.display = (mode === 'week') ? 'block' : 'none';
-    document.getElementById('ov-panel-month').style.display = (mode === 'month') ? 'block' : 'none';
     document.getElementById('ov-panel-year').style.display = (mode === 'year') ? 'block' : 'none';
 
     renderCurrentOverviewView();
   }
 
   function renderCurrentOverviewView() {
-    if (currentOverviewMode === 'week') renderWeeklyAccordion();
-    else if (currentOverviewMode === 'month') renderMonthlyStream();
+    if (currentOverviewMode === 'collage') renderMonthlyCollageAndRecap();
+    else if (currentOverviewMode === 'week') renderWeeklyAccordion();
     else if (currentOverviewMode === 'year') renderYearlyMatrix();
   }
 
+  function shiftMonthInOverview(delta) {
+    triggerHaptic(6);
+    viewDate.setMonth(viewDate.getMonth() + delta);
+    renderMonthlyCollageAndRecap();
+  }
+
+  /* DayPic Style Monthly Collage & Recap Report */
+  function renderMonthlyCollageAndRecap() {
+    const y = viewDate.getFullYear();
+    const m = viewDate.getMonth();
+    const prefix = `${y}-${String(m + 1).padStart(2, '0')}`;
+    const daysInMonth = new Date(y, m + 1, 0).getDate();
+
+    document.getElementById('collage-nav-title').innerText = `${y}년 ${m + 1}월`;
+    document.getElementById('collage-poster-sub').innerText = `${y} PHOTO ARCHIVE`;
+    document.getElementById('collage-poster-month').innerText = MONTH_NAMES[m];
+
+    const monthDates = Object.keys(diaryStore).filter(d => d.startsWith(prefix)).sort();
+    const photoItems = [];
+    let totalPhotos = 0;
+    const withCounts = {};
+    const emojiCounts = {};
+
+    monthDates.forEach(dStr => {
+      const entry = diaryStore[dStr];
+      if (entry.photos && entry.photos.length > 0) {
+        totalPhotos += entry.photos.length;
+        photoItems.push({
+          dateStr: dStr,
+          dayNum: dStr.slice(8, 10),
+          url: entry.photos[0]
+        });
+      }
+
+      const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
+      badges.forEach(b => {
+        withCounts[b] = (withCounts[b] || 0) + 1;
+      });
+
+      const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+      emojis.forEach(em => {
+        emojiCounts[em] = (emojiCounts[em] || 0) + 1;
+      });
+    });
+
+    // 1. Render Photo Collage Grid
+    const gridContainer = document.getElementById('collage-grid-container');
+    gridContainer.innerHTML = '';
+    const saveBtn = document.getElementById('btn-download-collage');
+
+    if (photoItems.length === 0) {
+      saveBtn.style.opacity = '0.45';
+      gridContainer.innerHTML = `<div style="text-align:center; padding:42px 16px; color:var(--text-sub); font-size:0.86rem; background:var(--card-inner); border-radius:14px;">이 달에 기록된 사진이 아직 없습니다.<br>달력에 사진을 올리면 자동으로 포스터가 완성됩니다.</div>`;
+    } else {
+      saveBtn.style.opacity = '1';
+      const grid = document.createElement('div');
+      grid.className = 'collage-photo-grid';
+      if (photoItems.length <= 4) grid.classList.add('grid-cols-2');
+      else if (photoItems.length >= 13) grid.classList.add('grid-cols-4');
+
+      photoItems.forEach(item => {
+        const tile = document.createElement('div');
+        tile.className = 'collage-tile';
+        tile.innerHTML = `
+          <img src="${item.url}" crossorigin="anonymous">
+          <span class="collage-tile-date">${Number(item.dayNum)}</span>
+        `;
+        tile.onclick = () => {
+          triggerHaptic(6);
+          openDiaryModal(item.dateStr);
+        };
+        grid.appendChild(tile);
+      });
+      gridContainer.appendChild(grid);
+    }
+
+    // 2. Render Monthly Recap Statistics
+    const recordedDays = monthDates.length;
+    const rate = Math.min(100, Math.round((recordedDays / daysInMonth) * 100));
+    const monthArchives = archiveStore.filter(a => a.date && a.date.startsWith(prefix));
+
+    document.getElementById('recap-rate-badge').innerText = `달성률 ${rate}% (${recordedDays}/${daysInMonth}일)`;
+    document.getElementById('recap-progress-fill').style.width = `${rate}%`;
+    document.getElementById('recap-days-count').innerText = `${recordedDays}일`;
+    document.getElementById('recap-photos-count').innerText = `${totalPhotos}장`;
+    document.getElementById('recap-archive-count').innerText = `${monthArchives.length}건`;
+
+    // Top With Ranking
+    const topWithBox = document.getElementById('recap-top-with');
+    topWithBox.innerHTML = '';
+    const sortedWith = Object.entries(withCounts).sort((a, b) => b[1] - a[1]).slice(0, 4);
+    if (sortedWith.length === 0) {
+      topWithBox.innerHTML = `<span style="font-size:0.8rem; color:var(--text-sub);">기록된 With 태그가 없습니다.</span>`;
+    } else {
+      sortedWith.forEach(([name, cnt], idx) => {
+        const crown = idx === 0 ? '👑 ' : '';
+        topWithBox.innerHTML += `<div class="recap-rank-pill">${crown}#${name} <span class="recap-rank-count">${cnt}회</span></div>`;
+      });
+    }
+
+    // Top Emoji Ranking
+    const topEmojiBox = document.getElementById('recap-top-emojis');
+    topEmojiBox.innerHTML = '';
+    const sortedEmojis = Object.entries(emojiCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+    if (sortedEmojis.length === 0) {
+      topEmojiBox.innerHTML = `<span style="font-size:0.8rem; color:var(--text-sub);">기록된 이모지가 없습니다.</span>`;
+    } else {
+      sortedEmojis.forEach(([em, cnt]) => {
+        topEmojiBox.innerHTML += `<div class="recap-rank-pill">${em} <span class="recap-rank-count">${cnt}회</span></div>`;
+      });
+    }
+  }
+
+  /* Download Monthly Collage Poster as PNG */
+  async function downloadMonthlyCollagePoster() {
+    const y = viewDate.getFullYear();
+    const m = viewDate.getMonth();
+    const prefix = `${y}-${String(m + 1).padStart(2, '0')}`;
+    const monthDates = Object.keys(diaryStore).filter(d => d.startsWith(prefix)).sort();
+    const photoUrls = [];
+
+    monthDates.forEach(dStr => {
+      const entry = diaryStore[dStr];
+      if (entry.photos && entry.photos.length > 0) {
+        photoUrls.push({ day: dStr.slice(8, 10), url: entry.photos[0] });
+      }
+    });
+
+    if (photoUrls.length === 0) {
+      alert('포스터로 저장할 사진이 이 달에 없습니다.');
+      return;
+    }
+
+    triggerHaptic(10);
+    const btn = document.getElementById('btn-download-collage');
+    const origText = btn.innerHTML;
+    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> 생성중`;
+
+    try {
+      const cols = photoUrls.length <= 4 ? 2 : (photoUrls.length >= 13 ? 4 : 3);
+      const rows = Math.ceil(photoUrls.length / cols);
+      const padding = 60;
+      const gap = 18;
+      const headerHeight = 160;
+      const footerHeight = 90;
+      const posterWidth = 1080;
+      const tileSize = Math.floor((posterWidth - padding * 2 - gap * (cols - 1)) / cols);
+      const posterHeight = headerHeight + rows * tileSize + (rows - 1) * gap + footerHeight + padding;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = posterWidth;
+      canvas.height = posterHeight;
+      const ctx = canvas.getContext('2d');
+
+      // Background
+      const isDark = document.body.classList.contains('theme-dark');
+      const isSepia = document.body.classList.contains('theme-sepia');
+      ctx.fillStyle = isDark ? '#141416' : (isSepia ? '#f7f3e9' : '#ffffff');
+      ctx.fillRect(0, 0, posterWidth, posterHeight);
+
+      // Header Text
+      ctx.fillStyle = isDark ? '#888890' : '#8a8a93';
+      ctx.font = '700 24px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText(`${y} MONTHLY PHOTO COLLAGE`, padding, padding + 32);
+
+      ctx.fillStyle = isDark ? '#f5f5f7' : (isSepia ? '#383028' : '#141416');
+      ctx.font = '900 64px -apple-system, BlinkMacSystemFont, sans-serif';
+      ctx.fillText(`${MONTH_NAMES[m]}`, padding, padding + 104);
+
+      // Load and draw each image
+      const loadImg = (url) => new Promise((resolve) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+        img.src = url;
+      });
+
+      for (let i = 0; i < photoUrls.length; i++) {
+        const r = Math.floor(i / cols);
+        const c = i % cols;
+        const x = padding + c * (tileSize + gap);
+        const yPos = headerHeight + r * (tileSize + gap);
+
+        const img = await loadImg(photoUrls[i].url);
+        ctx.save();
+        // Rounded rect clip
+        const rad = 20;
+        ctx.beginPath();
+        ctx.moveTo(x + rad, yPos);
+        ctx.lineTo(x + tileSize - rad, yPos);
+        ctx.quadraticCurveTo(x + tileSize, yPos, x + tileSize, yPos + rad);
+        ctx.lineTo(x + tileSize, yPos + tileSize - rad);
+        ctx.quadraticCurveTo(x + tileSize, yPos + tileSize, x + tileSize - rad, yPos + tileSize);
+        ctx.lineTo(x + rad, yPos + tileSize);
+        ctx.quadraticCurveTo(x, yPos + tileSize, x, yPos + tileSize - rad);
+        ctx.lineTo(x, yPos + rad);
+        ctx.quadraticCurveTo(x, yPos, x + rad, yPos);
+        ctx.closePath();
+        ctx.clip();
+
+        if (img) {
+          const scale = Math.max(tileSize / img.width, tileSize / img.height);
+          const drawW = img.width * scale;
+          const drawH = img.height * scale;
+          ctx.drawImage(img, x + (tileSize - drawW) / 2, yPos + (tileSize - drawH) / 2, drawW, drawH);
+        } else {
+          ctx.fillStyle = '#e5e5ea';
+          ctx.fillRect(x, yPos, tileSize, tileSize);
+        }
+
+        // Date tag
+        ctx.fillStyle = 'rgba(0,0,0,0.48)';
+        ctx.fillRect(x + 14, yPos + tileSize - 44, 48, 30);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 18px sans-serif';
+        ctx.fillText(String(Number(photoUrls[i].day)), x + 26, yPos + tileSize - 23);
+        ctx.restore();
+      }
+
+      // Footer Branding
+      ctx.fillStyle = isDark ? '#66666e' : '#a0a0a8';
+      ctx.font = '700 22px sans-serif';
+      ctx.fillText(`OOK ARCHIVE · ${photoUrls.length} MOMENTS IN ${y}.${String(m + 1).padStart(2, '0')}`, padding, posterHeight - 36);
+
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `OOK_Collage_${y}_${String(m + 1).padStart(2, '0')}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (e) {
+      alert('포스터 생성 중 오류가 발생했습니다: ' + e.message);
+    } finally {
+      btn.innerHTML = origText;
+    }
+  }
+
+  /* Weekly Accordion */
   function getStartOfWeek(date) {
     const d = new Date(date);
     const day = d.getDay();
@@ -2268,80 +2843,7 @@
     renderWeeklyAccordion();
   }
 
-  function renderMonthlyStream() {
-    const container = document.getElementById('month-stream-feed');
-    container.innerHTML = '';
-
-    const y = viewDate.getFullYear();
-    const m = viewDate.getMonth() + 1;
-    const prefix = `${y}-${String(m).padStart(2, '0')}`;
-
-    document.getElementById('month-stream-caption').innerText = 
-      `${y}년 ${m}월 타임라인 · 카드를 탭하면 시네마 액자가 열립니다.`;
-
-    const monthDates = Object.keys(diaryStore).filter(d => d.startsWith(prefix)).sort().reverse();
-
-    if (monthDates.length === 0) {
-      container.innerHTML = `<div style="text-align:center; padding:40px 0; color:var(--text-sub); font-size:0.85rem;">이번 달에 남겨진 일기가 없습니다.</div>`;
-      return;
-    }
-
-    monthDates.forEach((dStr, idx) => {
-      const entry = diaryStore[dStr];
-      const [,, dayNum] = dStr.split('-');
-      const dObj = new Date(y, m - 1, Number(dayNum));
-      const dayName = DAY_LABELS[dObj.getDay()];
-
-      const card = document.createElement('div');
-      card.className = 'stream-card-item' + (idx === 0 ? ' open' : '');
-
-      const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
-      const badgeText = badges.length > 0 ? badges.map(b => '#' + b).join(' ') : '일상 기록';
-
-      const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
-      const firstPhoto = entry.photos && entry.photos.length > 0 ? entry.photos[0] : null;
-      const rightThumbHtml = firstPhoto 
-        ? `<img class="stream-mini-thumb" src="${firstPhoto}">`
-        : `<div class="stream-mini-emoji">${emojis[0] || '📖'}</div>`;
-
-      let photosGalleryHtml = '';
-      if (entry.photos && entry.photos.length > 0) {
-        photosGalleryHtml = `<div class="expansion-multi-photos">` +
-          entry.photos.map(p => `<img src="${p}">`).join('') +
-          `</div>`;
-      }
-
-      card.innerHTML = `
-        <div class="stream-node-dot"></div>
-        <div class="stream-card-summary">
-          <div class="stream-date-badge">${dayNum}</div>
-          <div class="stream-summary-text">
-            <div class="stream-headline">${entry.text ? entry.text : (emojis.length > 0 ? emojis.join(' ') + ' 오늘의 기록' : '사진 기록')}</div>
-            <div class="stream-tags">${dayName}요일 · ${badgeText}</div>
-          </div>
-          ${rightThumbHtml}
-        </div>
-        <div class="stream-card-expansion">
-          ${photosGalleryHtml}
-          <div class="expansion-body-text">${entry.text || '본문 글 없이 사진과 뱃지로 남겨진 하루입니다.'}</div>
-          <div class="expansion-footer">
-            <span>${entry.photos ? entry.photos.length : 0}장의 사진</span>
-            <span style="color:var(--accent-blue); font-weight:600;" onclick="event.stopPropagation(); openDiaryModal('${dStr}')">상세 모달 열기 →</span>
-          </div>
-        </div>
-      `;
-
-      card.onclick = () => {
-        triggerHaptic(6);
-        const isOpen = card.classList.contains('open');
-        document.querySelectorAll('.stream-card-item').forEach(el => el.classList.remove('open'));
-        if (!isOpen) card.classList.add('open');
-      };
-
-      container.appendChild(card);
-    });
-  }
-
+  /* Yearly 365 Matrix */
   function renderYearlyMatrix() {
     const board = document.getElementById('matrix-cell-board');
     board.innerHTML = '';
@@ -2424,7 +2926,107 @@
     if (inspectorSelectedDate) onCalendarDateClick(inspectorSelectedDate);
   }
 
-  function openDiaryModal(dateStr) {
+  function refreshDiaryPrompt() {
+    triggerHaptic(6);
+    const randomPrompt = DIARY_PROMPTS[Math.floor(Math.random() * DIARY_PROMPTS.length)];
+    document.getElementById('diary-prompt-text').innerText = randomPrompt;
+  }
+
+  function switchDiaryModalMode(mode) {
+    triggerHaptic(6);
+    currentDiaryModalMode = mode;
+    const readView = document.getElementById('diary-read-view');
+    const editView = document.getElementById('diary-edit-view');
+    const headerEditBtn = document.getElementById('btn-switch-to-edit');
+
+    if (mode === 'read') {
+      readView.style.display = 'flex';
+      editView.style.display = 'none';
+      headerEditBtn.style.display = 'inline-flex';
+      renderDiaryReadView();
+    } else {
+      readView.style.display = 'none';
+      editView.style.display = 'flex';
+      headerEditBtn.style.display = 'none';
+    }
+  }
+
+  function renderDiaryReadView() {
+    const entry = diaryStore[selectedDateStr] || { text: '', photos: [], badges: [], emojis: [] };
+    const galleryWrap = document.getElementById('diary-read-gallery-wrap');
+    const metaRow = document.getElementById('diary-read-meta');
+    const essayBox = document.getElementById('diary-read-essay');
+
+    // 1. Photos Gallery with Swipe, PC Arrow Buttons & Pagination Dots
+    const photos = entry.photos || [];
+    if (photos.length > 0) {
+      const slidesHtml = photos.map((src, idx) => `
+        <div class="diary-read-slide">
+          <img src="${src}">
+          ${photos.length > 1 ? `<span class="cal-photo-count-badge" style="top:12px; right:12px; bottom:auto; font-size:0.72rem; padding:3px 8px;">${idx + 1} / ${photos.length}</span>` : ''}
+        </div>
+      `).join('');
+
+      const controlsHtml = photos.length > 1 ? `
+        <button type="button" class="gallery-nav-arrow prev" onclick="scrollDiaryReadGallery(-1)" aria-label="이전 사진"><i class="fa-solid fa-chevron-left"></i></button>
+        <button type="button" class="gallery-nav-arrow next" onclick="scrollDiaryReadGallery(1)" aria-label="다음 사진"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="gallery-dots-bar" id="diary-read-dots">
+          ${photos.map((_, i) => `<span class="gallery-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
+        </div>
+      ` : '';
+
+      galleryWrap.innerHTML = `
+        <div class="diary-read-gallery-outer">
+          <div class="diary-read-gallery" id="diary-read-scroller" onscroll="updateDiaryReadDots()">${slidesHtml}</div>
+          ${controlsHtml}
+        </div>
+      `;
+      galleryWrap.style.display = 'block';
+    } else {
+      galleryWrap.innerHTML = '';
+      galleryWrap.style.display = 'none';
+    }
+
+    // 2. Emojis & With Badges
+    metaRow.innerHTML = '';
+    const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+    if (emojis.length > 0) {
+      metaRow.innerHTML += `<span class="badge-pill" style="font-size:1.05rem; letter-spacing:2px; padding:5px 10px;">${emojis.join('')}</span>`;
+    }
+    const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
+    badges.forEach(b => {
+      metaRow.innerHTML += `<span class="badge-pill" style="font-weight:700;">#${b}</span>`;
+    });
+
+    // 3. Essay Body
+    if (entry.text && entry.text.trim().length > 0) {
+      essayBox.innerText = entry.text;
+      essayBox.style.color = 'var(--text-main)';
+    } else {
+      essayBox.innerText = '사진과 태그로 남겨진 소중한 하루의 기록입니다.';
+      essayBox.style.color = 'var(--text-sub)';
+    }
+  }
+
+  function scrollDiaryReadGallery(dir) {
+    triggerHaptic(6);
+    const scroller = document.getElementById('diary-read-scroller');
+    if (!scroller) return;
+    const width = scroller.clientWidth;
+    scroller.scrollBy({ left: dir * width, behavior: 'smooth' });
+  }
+
+  function updateDiaryReadDots() {
+    const scroller = document.getElementById('diary-read-scroller');
+    const dotsBox = document.getElementById('diary-read-dots');
+    if (!scroller || !dotsBox) return;
+    const idx = Math.round(scroller.scrollLeft / scroller.clientWidth);
+    const dots = dotsBox.querySelectorAll('.gallery-dot');
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  /* Diary Modal Functions */
+  function openDiaryModal(dateStr, forceMode = null) {
     selectedDateStr = dateStr;
     const [y, m, d] = dateStr.split('-').map(Number);
     const dateObj = new Date(y, m - 1, d);
@@ -2432,7 +3034,16 @@
 
     document.getElementById('diary-sheet-title').innerText = `${y}. ${m}. ${d}. (${dayName})`;
 
-    const entry = diaryStore[dateStr] || { text: '', photos: [], badges: [], emojis: [] };
+    const existingEntry = diaryStore[dateStr];
+    const hasContent = existingEntry && (
+      (existingEntry.text && existingEntry.text.trim().length > 0) ||
+      (existingEntry.photos && existingEntry.photos.length > 0) ||
+      (existingEntry.badges && existingEntry.badges.length > 0) ||
+      (existingEntry.emojis && existingEntry.emojis.length > 0) ||
+      existingEntry.emoji || existingEntry.withWho
+    );
+
+    const entry = existingEntry || { text: '', photos: [], badges: [], emojis: [] };
     document.getElementById('diary-input-text').value = entry.text || '';
     tempDiaryPhotos = entry.photos ? [...entry.photos] : [];
     uploadingCount = 0;
@@ -2443,6 +3054,9 @@
 
     selectedEmojisInModal = entry.emojis ? [...entry.emojis] : (entry.emoji ? [entry.emoji] : []);
     renderEmojiChipsInModal();
+
+    document.getElementById('btn-delete-diary').style.display = hasContent ? 'block' : 'none';
+    refreshDiaryPrompt();
 
     const recommendBox = document.getElementById('diary-schedule-recommend');
     const daySchedules = scheduleStore[dateStr] || [];
@@ -2461,6 +3075,9 @@
     } else {
       recommendBox.style.display = 'none';
     }
+
+    const initialMode = forceMode || (hasContent ? 'read' : 'edit');
+    switchDiaryModalMode(initialMode);
 
     document.body.classList.add('modal-open');
     document.getElementById('diary-modal').classList.add('active');
@@ -2620,7 +3237,9 @@
 
   function navigateDay(offset) {
     triggerHaptic(6);
-    saveDiaryEntry(false);
+    if (currentDiaryModalMode === 'edit') {
+      saveDiaryEntry(false);
+    }
     const [y, m, d] = selectedDateStr.split('-').map(Number);
     const target = new Date(y, m - 1, d + offset);
     if (target.getMonth() !== viewDate.getMonth() || target.getFullYear() !== viewDate.getFullYear()) {
@@ -2629,7 +3248,6 @@
     openDiaryModal(formatYMD(target));
   }
 
-  // ImgBB 클라우드 사진 업로드 적용
   async function handleDiaryPhotos(e) {
     const files = Array.from(e.target.files);
     if (tempDiaryPhotos.length + uploadingCount + files.length > 10) {
@@ -2690,8 +3308,9 @@
 
     triggerHaptic(10);
     const text = document.getElementById('diary-input-text').value.trim();
+    const isEmpty = !text && tempDiaryPhotos.length === 0 && selectedBadgesInModal.length === 0 && selectedEmojisInModal.length === 0;
 
-    if (!text && tempDiaryPhotos.length === 0 && selectedBadgesInModal.length === 0 && selectedEmojisInModal.length === 0) {
+    if (isEmpty) {
       delete diaryStore[selectedDateStr];
     } else {
       diaryStore[selectedDateStr] = {
@@ -2708,7 +3327,13 @@
     renderCalendar();
     renderCurrentOverviewView();
 
-    if (closeOnSave) closeDiaryModal();
+    if (closeOnSave) {
+      if (!isEmpty) {
+        switchDiaryModalMode('read');
+      } else {
+        closeDiaryModal();
+      }
+    }
   }
 
   function deleteDiaryEntry() {
@@ -2723,6 +3348,7 @@
     }
   }
 
+  /* Schedule Modal Functions */
   function openScheduleModal(dateStr) {
     selectedDateStr = dateStr;
     const [y, m, d] = dateStr.split('-').map(Number);
@@ -2754,7 +3380,7 @@
 
     daySchedules.forEach((item, index) => {
       const row = document.createElement('div');
-      row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; background:var(--card-bg); padding:8px 12px; border-radius:8px; font-size:0.85rem; border:1px solid var(--border-subtle);';
+      row.style.cssText = 'display:flex; justify-content:space-between; align-items:center; background:var(--card-inner); padding:8px 12px; border-radius:8px; font-size:0.85rem; border:1px solid var(--border-subtle);';
       row.innerHTML = `
         <div>
           <strong style="color:var(--text-main);">${item.title}</strong>
@@ -2801,6 +3427,7 @@
     renderCalendar();
   }
 
+  /* Archive / Timeline Tab Functions */
   function renderArchive() {
     const area = document.getElementById('archive-content-area');
     area.innerHTML = '';
@@ -2997,7 +3624,6 @@
     document.getElementById('archive-modal').classList.remove('active');
   }
 
-  // 활동 표지/포스터도 ImgBB 클라우드 URL로 업로드
   async function handleCoverPhoto(e) {
     const file = e.target.files[0];
     if (file) {
@@ -3154,6 +3780,7 @@
     editArchiveItem(id);
   }
 
+  /* Tasks Tab Functions */
   function renderTasks() {
     const pendingCount = taskStore.filter(t => !t.done).length;
     document.getElementById('task-count-text').innerText = `남은 할 일 ${pendingCount}개`;
@@ -3224,6 +3851,7 @@
     renderTasks();
   }
 
+  /* Settings & Backup */
   function openSettingsModal() {
     triggerHaptic(6);
     applyTheme(appTheme);
@@ -3240,7 +3868,7 @@
   function exportBackupData() {
     triggerHaptic(8);
     const backupObj = {
-      version: '3.0',
+      version: '4.0',
       exportedAt: new Date().toISOString(),
       theme: appTheme,
       userBadges: userBadgePool,

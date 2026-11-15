@@ -589,6 +589,84 @@
       margin-bottom: 4px;
       scrollbar-width: none;
     }
+    .stat-filter-row::-webkit-scrollbar { display: none; }
+    .stat-filter-chip {
+      padding: 6px 12px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .stat-filter-chip.active {
+      background: var(--text-main);
+      color: var(--bg);
+      border-color: var(--text-main);
+    }
+
+    .archive-list { display: flex; flex-direction: column; gap: 12px; }
+    .archive-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-sm);
+      border-radius: 18px;
+      padding: 13px;
+      display: flex;
+      gap: 13px;
+    }
+    .archive-visual {
+      width: 76px;
+      height: 102px;
+      border-radius: 12px;
+      background: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .archive-visual img { width: 100%; height: 100%; object-fit: cover; }
+    .archive-visual .card-emoji { font-size: 2.2rem; }
+    .archive-content { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .archive-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+    .archive-tag-group { display: flex; align-items: center; gap: 6px; }
+    .archive-tag { font-size: 0.72rem; font-weight: 700; color: var(--accent-blue); }
+    .archive-rating-pill { font-size: 0.72rem; font-weight: 700; color: #f59e0b; }
+    .archive-actions { display: flex; gap: 8px; }
+    .archive-actions button { background: none; border: none; color: var(--text-sub); cursor: pointer; font-size: 0.8rem; }
+
+    /* Tasks Tab */
+    .btn-clear-done {
+      background: var(--card-inner);
+      color: var(--text-sub);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 12px;
+      border-radius: 14px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .task-input-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .task-input-field {
+      flex: 1;
+      height: 46px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0 14px;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      outline: none;
+    }
+
     /* Diary Read View (DayPic Editorial Polaroid Card Style) */
     .diary-read-container {
       display: flex;
@@ -766,7 +844,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
-    /* 1) Weekly Accordion */
+    /* 1) Weekly 7-Day Daily Log */
     .week-nav-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .week-nav-title { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.3px; }
     .week-nav-btn {
@@ -781,64 +859,89 @@
       justify-content: center;
       cursor: pointer;
     }
-    .accordion-container {
+    .weekly-daily-log-list {
       display: flex;
-      height: 460px;
-      gap: 5px;
-      width: 100%;
-      border-radius: 22px;
-      overflow: hidden;
-      background: var(--card-inner);
-      padding: 6px;
-      border: 1px solid var(--border-subtle);
+      flex-direction: column;
+      gap: 8px;
     }
-    .acc-slice {
-      flex: 1;
-      height: 100%;
-      border-radius: 15px;
-      position: relative;
-      overflow: hidden;
+    .weekly-log-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      height: 78px;
+      box-shadow: var(--shadow-sm);
       cursor: pointer;
-      transition: flex 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-      background-size: cover;
-      background-position: center;
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-subtle);
+      transition: transform 0.12s ease;
+    }
+    .weekly-log-row:active { transform: scale(0.985); }
+    .weekly-log-row.is-today { border: 1.5px solid var(--text-main); }
+    .weekly-log-row.is-empty { opacity: 0.68; }
+    .weekly-log-date-col {
+      width: 40px;
+      text-align: center;
+      flex-shrink: 0;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 12px 6px;
+      gap: 2px;
     }
-    .acc-slice::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.85) 100%);
-      z-index: 1;
-    }
-    .acc-slice.expanded { flex: 4.5; border-color: var(--accent-blue); }
-    .acc-top { position: relative; z-index: 2; text-align: center; }
-    .acc-day-name { font-size: 0.8rem; font-weight: 800; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
-    .acc-date-num { font-size: 0.72rem; color: #ddd; text-shadow: 0 1px 2px rgba(0,0,0,0.8); }
-    .acc-slice.expanded .acc-day-name { color: var(--accent-blue); font-size: 1rem; }
-    .acc-body {
-      position: relative;
-      z-index: 2;
-      opacity: 0;
-      transition: opacity 0.25s ease 0.1s;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .acc-slice.expanded .acc-body { opacity: 1; }
-    .acc-body-title { font-size: 0.92rem; font-weight: 700; color: #fff; line-height: 1.35; }
-    .acc-pill {
+    .weekly-log-day {
       font-size: 0.68rem;
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-      padding: 2px 6px;
-      border-radius: 4px;
+      font-weight: 800;
+      color: var(--text-sub);
+    }
+    .weekly-log-num {
+      font-size: 1.05rem;
+      font-weight: 900;
+      line-height: 1.1;
+    }
+    .weekly-log-row.is-sat .weekly-log-day,
+    .weekly-log-row.is-sat .weekly-log-num { color: var(--weekend-sat); }
+    .weekly-log-row.is-sun .weekly-log-day,
+    .weekly-log-row.is-sun .weekly-log-num { color: var(--weekend-sun); }
+    .weekly-log-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--card-inner);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
+      border: 1px solid var(--border-subtle);
+    }
+    .weekly-log-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .weekly-log-content {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .weekly-log-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
       white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .weekly-log-sub {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-sub);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* 2) DayPic Monthly Photo Collage & Recap Report */
@@ -1485,55 +1588,6 @@
       background: var(--text-main);
     }
 
-    /* Diary Read View (Editorial Card Style) */
-    .diary-read-container {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .diary-read-gallery {
-      width: 100%;
-      height: 260px;
-      border-radius: 18px;
-      overflow-x: auto;
-      display: flex;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      background: var(--card-inner);
-      position: relative;
-      border: 1px solid var(--border-subtle);
-    }
-    .diary-read-gallery::-webkit-scrollbar { display: none; }
-    .diary-read-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      height: 100%;
-      scroll-snap-align: start;
-      position: relative;
-    }
-    .diary-read-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .diary-read-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-    }
-    .diary-read-essay-box {
-      background: var(--card-inner);
-      border-radius: 16px;
-      padding: 18px 16px;
-      font-size: 0.96rem;
-      line-height: 1.65;
-      color: var(--text-main);
-      white-space: pre-wrap;
-      word-break: keep-all;
-      min-height: 90px;
-      border: 1px solid var(--border-subtle);
-    }
     .diary-prompt-banner {
       background: var(--card-inner);
       border-left: 3px solid var(--accent-blue);
@@ -1703,14 +1757,25 @@
         </div>
       </div>
 
+      <!-- 요청하신 배치: 주간 데일리 로그 (좌측 기본) -> 월간 콜라주 (중간) -> 연간 365 (우측) -->
       <div class="overview-mode-selector">
-        <button class="overview-mode-btn active" id="ov-btn-collage" onclick="switchOverviewMode('collage')">월간 콜라주</button>
-        <button class="overview-mode-btn" id="ov-btn-week" onclick="switchOverviewMode('week')">주간 아코디언</button>
+        <button class="overview-mode-btn active" id="ov-btn-week" onclick="switchOverviewMode('week')">주간 데일리 로그</button>
+        <button class="overview-mode-btn" id="ov-btn-collage" onclick="switchOverviewMode('collage')">월간 콜라주</button>
         <button class="overview-mode-btn" id="ov-btn-year" onclick="switchOverviewMode('year')">연간 365</button>
       </div>
 
-      <!-- 1) 월간 포토 콜라주 & 월말 결산 리포트 -->
-      <div id="ov-panel-collage">
+      <!-- 1) 주간 7일 데일리 로그 -->
+      <div id="ov-panel-week">
+        <div class="week-nav-bar">
+          <button class="week-nav-btn" onclick="shiftWeek(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+          <div class="week-nav-title" id="week-nav-title">2026년 11월</div>
+          <button class="week-nav-btn" onclick="shiftWeek(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        <div class="weekly-daily-log-list" id="week-daily-log-box"></div>
+      </div>
+
+      <!-- 2) 월간 포토 콜라주 & 월말 결산 리포트 -->
+      <div id="ov-panel-collage" style="display: none;">
         <div class="week-nav-bar">
           <button class="week-nav-btn" onclick="shiftMonthInOverview(-1)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="week-nav-title" id="collage-nav-title">2026년 11월</div>
@@ -1771,16 +1836,6 @@
             <div class="recap-pill-row" id="recap-top-emojis"></div>
           </div>
         </div>
-      </div>
-
-      <!-- 2) 주간 아코디언 -->
-      <div id="ov-panel-week" style="display: none;">
-        <div class="week-nav-bar">
-          <button class="week-nav-btn" onclick="shiftWeek(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-          <div class="week-nav-title" id="week-nav-title">2026년 11월</div>
-          <button class="week-nav-btn" onclick="shiftWeek(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-        <div class="accordion-container" id="week-accordion-box"></div>
       </div>
 
       <!-- 3) 연간 365 잔디 매트릭스 -->
@@ -2141,7 +2196,7 @@
   let viewDate = new Date();
   let selectedDateStr = '';
   let activeArchiveFilter = '전체';
-  let currentOverviewMode = 'collage';
+  let currentOverviewMode = 'week';
   
   let diaryStore = JSON.parse(localStorage.getItem('min_diaries') || '{}');
   let archiveStore = JSON.parse(localStorage.getItem('min_archives') || '[]');
@@ -2241,11 +2296,10 @@
     dbRef.set(payload)
       .then(() => {
         if (ind) setTimeout(() => ind.classList.remove('syncing'), 400);
-        if (isManual) alert('현재 기기의 모든 데이터가 클라우드에 성공적으로 반영되었습니다.');
+        if (isManual) console.log('클라우드 동기화 완료');
       })
       .catch(err => {
         console.error("Firebase Sync Error:", err);
-        if (isManual) alert('클라우드 동기화 실패: 네트워크 상태를 확인해주세요.');
       });
   }
 
@@ -2511,18 +2565,19 @@
     triggerHaptic(6);
     currentOverviewMode = mode;
     document.querySelectorAll('.overview-mode-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(`ov-btn-${mode}`).classList.add('active');
+    const activeBtn = document.getElementById(`ov-btn-${mode}`);
+    if (activeBtn) activeBtn.classList.add('active');
 
-    document.getElementById('ov-panel-collage').style.display = (mode === 'collage') ? 'block' : 'none';
     document.getElementById('ov-panel-week').style.display = (mode === 'week') ? 'block' : 'none';
+    document.getElementById('ov-panel-collage').style.display = (mode === 'collage') ? 'block' : 'none';
     document.getElementById('ov-panel-year').style.display = (mode === 'year') ? 'block' : 'none';
 
     renderCurrentOverviewView();
   }
 
   function renderCurrentOverviewView() {
-    if (currentOverviewMode === 'collage') renderMonthlyCollageAndRecap();
-    else if (currentOverviewMode === 'week') renderWeeklyAccordion();
+    if (currentOverviewMode === 'week') renderWeeklyDailyLog();
+    else if (currentOverviewMode === 'collage') renderMonthlyCollageAndRecap();
     else if (currentOverviewMode === 'year') renderYearlyMatrix();
   }
 
@@ -2655,7 +2710,6 @@
     });
 
     if (photoUrls.length === 0) {
-      alert('포스터로 저장할 사진이 이 달에 없습니다.');
       return;
     }
 
@@ -2680,13 +2734,11 @@
       canvas.height = posterHeight;
       const ctx = canvas.getContext('2d');
 
-      // Background
       const isDark = document.body.classList.contains('theme-dark');
       const isSepia = document.body.classList.contains('theme-sepia');
       ctx.fillStyle = isDark ? '#141416' : (isSepia ? '#f7f3e9' : '#ffffff');
       ctx.fillRect(0, 0, posterWidth, posterHeight);
 
-      // Header Text
       ctx.fillStyle = isDark ? '#888890' : '#8a8a93';
       ctx.font = '700 24px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillText(`${y} MONTHLY PHOTO COLLAGE`, padding, padding + 32);
@@ -2695,7 +2747,6 @@
       ctx.font = '900 64px -apple-system, BlinkMacSystemFont, sans-serif';
       ctx.fillText(`${MONTH_NAMES[m]}`, padding, padding + 104);
 
-      // Load and draw each image
       const loadImg = (url) => new Promise((resolve) => {
         const img = new Image();
         img.crossOrigin = 'anonymous';
@@ -2712,7 +2763,6 @@
 
         const img = await loadImg(photoUrls[i].url);
         ctx.save();
-        // Rounded rect clip
         const rad = 20;
         ctx.beginPath();
         ctx.moveTo(x + rad, yPos);
@@ -2737,7 +2787,6 @@
           ctx.fillRect(x, yPos, tileSize, tileSize);
         }
 
-        // Date tag
         ctx.fillStyle = 'rgba(0,0,0,0.48)';
         ctx.fillRect(x + 14, yPos + tileSize - 44, 48, 30);
         ctx.fillStyle = '#ffffff';
@@ -2746,7 +2795,6 @@
         ctx.restore();
       }
 
-      // Footer Branding
       ctx.fillStyle = isDark ? '#66666e' : '#a0a0a8';
       ctx.font = '700 22px sans-serif';
       ctx.fillText(`OOK ARCHIVE · ${photoUrls.length} MOMENTS IN ${y}.${String(m + 1).padStart(2, '0')}`, padding, posterHeight - 36);
@@ -2759,13 +2807,13 @@
       link.click();
       link.remove();
     } catch (e) {
-      alert('포스터 생성 중 오류가 발생했습니다: ' + e.message);
+      console.error('포스터 생성 오류:', e);
     } finally {
       btn.innerHTML = origText;
     }
   }
 
-  /* Weekly Accordion */
+  /* 1) Weekly 7-Day Daily Log */
   function getStartOfWeek(date) {
     const d = new Date(date);
     const day = d.getDay();
@@ -2775,72 +2823,95 @@
     return d;
   }
 
-  function renderWeeklyAccordion() {
-    const container = document.getElementById('week-accordion-box');
+  function renderWeeklyDailyLog() {
+    const container = document.getElementById('week-daily-log-box');
+    if (!container) return;
     container.innerHTML = '';
 
     const monday = getStartOfWeek(viewDate);
     const sunday = new Date(monday);
     sunday.setDate(monday.getDate() + 6);
 
-    document.getElementById('week-nav-title').innerText = 
-      `${monday.getMonth() + 1}.${monday.getDate()} - ${sunday.getMonth() + 1}.${sunday.getDate()} (${monday.getFullYear()})`;
+    const navTitle = document.getElementById('week-nav-title');
+    if (navTitle) {
+      navTitle.innerText = `${monday.getMonth() + 1}.${monday.getDate()} - ${sunday.getMonth() + 1}.${sunday.getDate()} (${monday.getFullYear()})`;
+    }
 
-    const todayDay = new Date().getDay();
-    const todayIndex = todayDay === 0 ? 6 : todayDay - 1;
+    const todayStr = formatYMD(new Date());
+    const ENG_DAYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
     for (let i = 0; i < 7; i++) {
       const dObj = new Date(monday);
       dObj.setDate(monday.getDate() + i);
       const dStr = formatYMD(dObj);
+      const dow = dObj.getDay();
       const entry = diaryStore[dStr];
-      const dayName = DAY_LABELS[dObj.getDay()];
+      const schedules = scheduleStore[dStr] || [];
 
-      const slice = document.createElement('div');
-      slice.className = 'acc-slice' + (i === todayIndex ? ' expanded' : '');
-      
-      if (entry && entry.photos && entry.photos.length > 0) {
-        slice.style.backgroundImage = `url('${entry.photos[0]}')`;
-      }
+      const row = document.createElement('div');
+      row.className = 'weekly-log-row';
+      if (dow === 6) row.classList.add('is-sat');
+      if (dow === 0) row.classList.add('is-sun');
+      if (dStr === todayStr) row.classList.add('is-today');
 
-      const badges = entry ? (entry.badges || (entry.withWho ? [entry.withWho] : [])) : [];
-      const badgePills = badges.slice(0, 2).map(b => `<span class="acc-pill">#${b}</span>`).join('');
+      const hasEntry = Boolean(entry);
+      if (!hasEntry && schedules.length === 0) row.classList.add('is-empty');
 
       const emojis = entry ? (entry.emojis || (entry.emoji ? [entry.emoji] : [])) : [];
-      const emojiPill = emojis.length > 0 ? `<span class="acc-pill">${emojis.join('')}</span>` : '';
+      const badges = entry ? (entry.badges || (entry.withWho ? [entry.withWho] : [])) : [];
 
-      slice.innerHTML = `
-        <div class="acc-top">
-          <div class="acc-day-name">${dayName}</div>
-          <div class="acc-date-num">${dObj.getDate()}</div>
+      let thumbHtml = '';
+      if (entry && entry.photos && entry.photos.length > 0) {
+        thumbHtml = `<img src="${entry.photos[0]}">`;
+      } else if (emojis.length > 0) {
+        thumbHtml = `<span>${emojis[0]}</span>`;
+      } else if (schedules.length > 0) {
+        thumbHtml = `<span style="font-size:1.2rem;">📌</span>`;
+      } else {
+        thumbHtml = `<span style="font-size:1rem; color:var(--text-sub);">+</span>`;
+      }
+
+      let titleText = '';
+      let subText = '';
+      if (hasEntry) {
+        titleText = entry.text ? entry.text : (emojis.length > 0 ? '기록된 순간' : '사진 기록');
+        const metaParts = [];
+        if (emojis.length > 0) metaParts.push(emojis.join(''));
+        if (badges.length > 0) metaParts.push(badges.map(b => '#' + b).join(' '));
+        subText = metaParts.length > 0 ? metaParts.join(' · ') : `${dObj.getMonth() + 1}월 ${dObj.getDate()}일`;
+      } else if (schedules.length > 0) {
+        titleText = schedules[0].title;
+        subText = `예정된 일정${schedules.length > 1 ? ` 외 ${schedules.length - 1}건` : ''}`;
+      } else {
+        titleText = '비어있는 하루';
+        subText = dStr > todayStr ? '탭하여 일정 등록' : '탭하여 기록 남기기';
+      }
+
+      row.innerHTML = `
+        <div class="weekly-log-date-col">
+          <span class="weekly-log-day">${ENG_DAYS[dow]}</span>
+          <span class="weekly-log-num">${dObj.getDate()}</span>
         </div>
-        <div class="acc-body">
-          <div class="acc-body-title">${entry ? (entry.text || (emojis[0] || '기록된 하루')) : '비어있는 하루'}</div>
-          <div style="display:flex; gap:3px; flex-wrap:wrap;">
-            ${emojiPill}
-            ${badgePills}
-          </div>
+        <div class="weekly-log-thumb">${thumbHtml}</div>
+        <div class="weekly-log-content">
+          <div class="weekly-log-title" ${!hasEntry && schedules.length === 0 ? 'style="color:var(--text-sub); font-weight:500;"' : ''}>${titleText}</div>
+          <div class="weekly-log-sub">${subText}</div>
         </div>
       `;
 
-      slice.onclick = () => {
+      row.onclick = () => {
         triggerHaptic(8);
-        if (slice.classList.contains('expanded')) {
-          onCalendarDateClick(dStr);
-        } else {
-          document.querySelectorAll('.acc-slice').forEach(s => s.classList.remove('expanded'));
-          slice.classList.add('expanded');
-        }
+        onCalendarDateClick(dStr);
       };
 
-      container.appendChild(slice);
+      container.appendChild(row);
     }
   }
 
   function shiftWeek(delta) {
     triggerHaptic(6);
     viewDate.setDate(viewDate.getDate() + (delta * 7));
-    renderWeeklyAccordion();
+    renderWeeklyDailyLog();
   }
 
   /* Yearly 365 Matrix */
@@ -3138,13 +3209,11 @@
   function deleteUserBadgeFromPool(e, badgeName) {
     e.stopPropagation();
     triggerHaptic(6);
-    if (confirm(`'#${badgeName}' 항목을 풀에서 완전히 삭제할까요?`)) {
-      userBadgePool = userBadgePool.filter(b => b !== badgeName);
-      selectedBadgesInModal = selectedBadgesInModal.filter(b => b !== badgeName);
-      safeSaveLocal();
-      renderBadgeChipsInModal();
-      syncLocalToFirebase();
-    }
+    userBadgePool = userBadgePool.filter(b => b !== badgeName);
+    selectedBadgesInModal = selectedBadgesInModal.filter(b => b !== badgeName);
+    safeSaveLocal();
+    renderBadgeChipsInModal();
+    syncLocalToFirebase();
   }
 
   function renderEmojiChipsInModal() {
@@ -3203,13 +3272,11 @@
   function deleteUserEmojiFromPool(e, em) {
     e.stopPropagation();
     triggerHaptic(6);
-    if (confirm(`'${em}' 이모지를 풀에서 삭제할까요?`)) {
-      userEmojiPool = userEmojiPool.filter(item => item !== em);
-      selectedEmojisInModal = selectedEmojisInModal.filter(item => item !== em);
-      safeSaveLocal();
-      renderEmojiChipsInModal();
-      syncLocalToFirebase();
-    }
+    userEmojiPool = userEmojiPool.filter(item => item !== em);
+    selectedEmojisInModal = selectedEmojisInModal.filter(item => item !== em);
+    safeSaveLocal();
+    renderEmojiChipsInModal();
+    syncLocalToFirebase();
   }
 
   function applyScheduleToDiary(title, withWho) {
@@ -3251,7 +3318,6 @@
   async function handleDiaryPhotos(e) {
     const files = Array.from(e.target.files);
     if (tempDiaryPhotos.length + uploadingCount + files.length > 10) {
-      alert('사진은 한 번에 최대 10장까지 첨부할 수 있습니다.');
       return;
     }
     triggerHaptic(8);
@@ -3263,7 +3329,7 @@
         const imageUrl = await uploadToImgBB(file);
         tempDiaryPhotos.push(imageUrl);
       } catch (err) {
-        alert('사진 업로드 중 오류가 발생했습니다: ' + err.message);
+        console.error('사진 업로드 오류:', err);
       } finally {
         uploadingCount--;
         renderDiaryPhotos();
@@ -3302,7 +3368,6 @@
 
   function saveDiaryEntry(closeOnSave = true) {
     if (uploadingCount > 0) {
-      alert('사진이 클라우드로 전송 중입니다. 잠시 후 저장을 눌러주세요.');
       return;
     }
 
@@ -3338,14 +3403,12 @@
 
   function deleteDiaryEntry() {
     triggerHaptic(6);
-    if (confirm('이 날의 기록을 삭제하시겠습니까?')) {
-      delete diaryStore[selectedDateStr];
-      safeSaveLocal();
-      syncLocalToFirebase();
-      renderCalendar();
-      renderCurrentOverviewView();
-      closeDiaryModal();
-    }
+    delete diaryStore[selectedDateStr];
+    safeSaveLocal();
+    syncLocalToFirebase();
+    renderCalendar();
+    renderCurrentOverviewView();
+    closeDiaryModal();
   }
 
   /* Schedule Modal Functions */
@@ -3395,10 +3458,7 @@
 
   function saveScheduleItem() {
     const title = document.getElementById('sch-title').value.trim();
-    if (!title) {
-      alert('일정 내용을 입력해주세요.');
-      return;
-    }
+    if (!title) return;
     triggerHaptic(10);
     const time = document.getElementById('sch-time').value;
     const withWho = document.getElementById('sch-with').value.trim();
@@ -3635,7 +3695,7 @@
         updateVisualBox();
         toggleEmojiPopover(false);
       } catch (err) {
-        alert('이미지 업로드 오류: ' + err.message);
+        console.error('이미지 업로드 오류:', err);
         updateVisualBox();
       }
       e.target.value = '';
@@ -3649,10 +3709,7 @@
 
   function saveArchiveItem() {
     const title = document.getElementById('ar-title').value.trim();
-    if (!title) {
-      alert('활동명을 입력해주세요.');
-      return;
-    }
+    if (!title) return;
     triggerHaptic(10);
 
     const rawCat = document.getElementById('ar-cat').value;
@@ -3736,12 +3793,10 @@
 
   function deleteArchiveItem(id) {
     triggerHaptic(6);
-    if (confirm('이 활동 기록을 삭제하시겠습니까?')) {
-      archiveStore = archiveStore.filter(i => i.id !== id);
-      safeSaveLocal();
-      syncLocalToFirebase();
-      renderArchive();
-    }
+    archiveStore = archiveStore.filter(i => i.id !== id);
+    safeSaveLocal();
+    syncLocalToFirebase();
+    renderArchive();
   }
 
   function openTicketModal(id) {
@@ -3911,9 +3966,8 @@
         renderTasks();
         renderCurrentOverviewView();
         closeSettingsModal();
-        alert('백업 데이터가 성공적으로 복원되고 클라우드에 동기화되었습니다.');
       } catch (err) {
-        alert('파일을 읽는 도중 오류가 발생했습니다: ' + err.message);
+        console.error('백업 복원 오류:', err);
       }
     };
     reader.readAsText(file);
@@ -3947,6 +4001,7 @@
   renderCalendar();
   renderArchive();
   renderTasks();
+  renderCurrentOverviewView();
 </script>
 </body>
 </html>

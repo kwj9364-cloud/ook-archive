@@ -143,6 +143,9 @@
       height: auto;
       padding: calc(env(safe-area-inset-top, 0px) + 12px) 18px 24px;
       overflow-y: auto;
+      overflow-x: hidden;
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
       -webkit-overflow-scrolling: touch;
       box-sizing: border-box;
     }
@@ -314,6 +317,7 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.02) 48%, rgba(0,0,0,0.32) 100%);
+      pointer-events: none;
       z-index: 1;
     }
     .cal-cell.has-thumb .day-num {
@@ -434,7 +438,7 @@
       height: 240px;
       display: flex;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: hidden;
       overscroll-behavior-x: contain;
       touch-action: pan-x pan-y;
       scroll-snap-type: x mandatory;
@@ -450,15 +454,6 @@
       scroll-snap-align: start;
       position: relative;
       touch-action: pan-x pan-y;
-    }
-    .cal-card-photo-scroller::-webkit-scrollbar { display: none; }
-    .cal-card-photo-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      height: 100%;
-      scroll-snap-align: start;
-      position: relative;
-      touch-action: pan-x;
     }
     .cal-card-photo-slide img {
       width: 100%;
@@ -855,7 +850,7 @@
       width: 100%;
       height: 310px;
       overflow-x: auto;
-      overflow-y: visible;
+      overflow-y: hidden;
       overscroll-behavior-x: contain;
       touch-action: pan-x pan-y;
       display: flex;
@@ -872,16 +867,6 @@
       position: relative;
       cursor: zoom-in;
       touch-action: pan-x pan-y;
-    }
-    .diary-read-gallery::-webkit-scrollbar { display: none; }
-    .diary-read-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      height: 100%;
-      scroll-snap-align: start;
-      position: relative;
-      cursor: zoom-in;
-      touch-action: pan-x;
     }
     .diary-read-slide img {
       width: 100%;

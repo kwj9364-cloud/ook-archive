@@ -17,6 +17,9 @@
   <link rel="manifest" href='data:application/manifest+json,{"name":"Minimal Archive","short_name":"OOK","start_url":".","display":"standalone","background_color":"%23141416","theme_color":"%23141416","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect x=%2728%27 y=%2728%27 width=%27456%27 height=%27456%27 rx=%27142%27 fill=%27%23121010%27 stroke=%27%23000000%27 stroke-width=%2716%27/%3E%3Cg fill=%27%23ffffff%27%3E%3Cpath d=%27M108 208 C108 188 120 180 136 180 H160 C176 180 188 188 188 208 V304 C188 324 176 332 160 332 H136 C120 332 108 324 108 304 Z M137 216 V296 H159 V216 Z%27/%3E%3Cpath d=%27M198 208 C198 188 210 180 226 180 H250 C266 180 278 188 278 208 V304 C278 324 266 332 250 332 H226 C210 332 198 324 198 304 Z M227 216 V296 H249 V216 Z%27/%3E%3Cpath d=%27M288 190 C288 182 294 176 303 176 C312 176 318 182 318 190 V236 L343 192 C347 184 355 180 363 184 C371 188 373 198 367 206 L344 246 L368 304 C373 313 369 323 360 327 C352 330 344 326 340 318 L318 266 V322 C318 330 312 336 303 336 C294 336 288 330 288 322 Z%27/%3E%3C/g%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml","purpose":"any maskable"}]}'>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Firebase SDK -->
@@ -48,6 +51,17 @@
       --matrix-mid: rgba(0, 122, 255, 0.68);
       --matrix-high: #007aff;
       --matrix-glow: rgba(0, 122, 255, 0.45);
+      --app-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+    }
+
+    body.font-serif {
+      --app-font: "Noto Serif KR", Georgia, serif;
+    }
+    body.font-hand {
+      --app-font: "Gowun Dodum", "Pretendard Variable", sans-serif;
+    }
+    body.font-retro {
+      --app-font: "IBM Plex Sans KR", "Pretendard Variable", monospace, sans-serif;
     }
 
     body.theme-dark {
@@ -115,7 +129,7 @@
     }
 
     body {
-      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+      font-family: var(--app-font);
       letter-spacing: -0.35px;
       font-feature-settings: "tnum";
       color: var(--text-main);
@@ -128,7 +142,7 @@
     }
 
     input, textarea, select, button {
-      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+      font-family: var(--app-font);
       letter-spacing: -0.3px;
     }
 
@@ -1576,6 +1590,7 @@
     .search-result-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
     .theme-picker-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .font-picker-group { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .theme-btn {
       padding: 12px 8px;
       border-radius: 12px;
@@ -2193,6 +2208,25 @@
       <button class="theme-btn" id="theme-btn-dark" onclick="setAppTheme('dark')"><i class="fa-solid fa-moon" style="font-size:1.2rem;"></i><span>다크</span></button>
       <button class="theme-btn" id="theme-btn-sepia" onclick="setAppTheme('sepia')"><i class="fa-solid fa-book" style="font-size:1.2rem;"></i><span>세피아</span></button>
     </div>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">글꼴 스타일</div>
+    <div class="font-picker-group">
+      <button class="theme-btn" id="font-btn-sans" onclick="setAppFont('sans')" style="font-family: 'Pretendard Variable', sans-serif;">
+        <span style="font-size:1.05rem; font-weight:800;">가나다</span>
+        <span>모던 고딕</span>
+      </button>
+      <button class="theme-btn" id="font-btn-serif" onclick="setAppFont('serif')" style="font-family: 'Noto Serif KR', serif;">
+        <span style="font-size:1.05rem; font-weight:700;">가나다</span>
+        <span>감성 명조</span>
+      </button>
+      <button class="theme-btn" id="font-btn-hand" onclick="setAppFont('hand')" style="font-family: 'Gowun Dodum', sans-serif;">
+        <span style="font-size:1.05rem; font-weight:600;">가나다</span>
+        <span>다정 손글씨</span>
+      </button>
+      <button class="theme-btn" id="font-btn-retro" onclick="setAppFont('retro')" style="font-family: 'IBM Plex Sans KR', sans-serif;">
+        <span style="font-size:1.05rem; font-weight:700;">가나다</span>
+        <span>아카이브 타자</span>
+      </button>
+    </div>
     <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">클라우드 동기화</div>
     <div class="settings-item">
       <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -2358,6 +2392,9 @@
   let diaryDraftStore = safeGetLocal('min_diary_drafts', {});
   let appTheme = (() => {
     try { return localStorage.getItem('min_theme') || 'light'; } catch (e) { return 'light'; }
+  })();
+  let appFont = (() => {
+    try { return localStorage.getItem('min_font') || 'sans'; } catch (e) { return 'sans'; }
   })();
   
   let userBadgePool = safeGetLocal('min_user_badges', ["친구", "가족", "연인", "혼자", "동료", "반려동물"]);
@@ -2576,10 +2613,10 @@
 
   function applyTheme(theme) {
     appTheme = theme;
-    document.body.className = '';
+    document.body.classList.remove('theme-dark', 'theme-sepia');
     if (theme === 'dark') document.body.classList.add('theme-dark');
     else if (theme === 'sepia') document.body.classList.add('theme-sepia');
-    document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('[id^="theme-btn-"]').forEach(btn => btn.classList.remove('active'));
     const activeBtn = document.getElementById(`theme-btn-${theme}`);
     if (activeBtn) activeBtn.classList.add('active');
   }
@@ -2588,6 +2625,23 @@
     triggerHaptic(6);
     applyTheme(theme);
     try { localStorage.setItem('min_theme', theme); } catch (e) {}
+  }
+
+  function applyFont(font) {
+    appFont = font;
+    document.body.classList.remove('font-serif', 'font-hand', 'font-retro');
+    if (font === 'serif') document.body.classList.add('font-serif');
+    else if (font === 'hand') document.body.classList.add('font-hand');
+    else if (font === 'retro') document.body.classList.add('font-retro');
+    document.querySelectorAll('[id^="font-btn-"]').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`font-btn-${font}`);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  function setAppFont(font) {
+    triggerHaptic(6);
+    applyFont(font);
+    try { localStorage.setItem('min_font', font); } catch (e) {}
   }
 
   function updateTodayJumpButtons() {
@@ -4456,6 +4510,7 @@
   function openSettingsModal() {
     triggerHaptic(6);
     applyTheme(appTheme);
+    applyFont(appFont);
     document.body.classList.add('modal-open');
     document.getElementById('settings-modal').classList.add('active');
   }
@@ -4644,6 +4699,7 @@
   })();
 
   applyTheme(appTheme);
+  applyFont(appFont);
   renderCalendar();
   renderArchive();
   renderTasks();

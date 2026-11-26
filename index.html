@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Gowun+Dodum&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;600;700;900&family=Patrick+Hand&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- Firebase SDK -->
@@ -52,16 +52,20 @@
       --matrix-high: #007aff;
       --matrix-glow: rgba(0, 122, 255, 0.45);
       --app-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Apple SD Gothic Neo", sans-serif;
+      --display-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body.font-serif {
-      --app-font: "Noto Serif KR", Georgia, serif;
+      --app-font: "Cormorant Garamond", "Noto Serif KR", Georgia, serif;
+      --display-font: "Cormorant Garamond", "Noto Serif KR", Georgia, serif;
     }
     body.font-hand {
-      --app-font: "Gowun Dodum", "Pretendard Variable", sans-serif;
+      --app-font: "Patrick Hand", "Gowun Dodum", "Pretendard Variable", sans-serif;
+      --display-font: "Patrick Hand", "Gowun Dodum", sans-serif;
     }
     body.font-retro {
-      --app-font: "IBM Plex Sans KR", "Pretendard Variable", monospace, sans-serif;
+      --app-font: "Space Mono", "IBM Plex Sans KR", monospace, sans-serif;
+      --display-font: "Space Mono", "IBM Plex Sans KR", monospace, sans-serif;
     }
 
     body.theme-dark {
@@ -228,11 +232,21 @@
       box-shadow: 0 0 6px #f59e0b;
     }
     .view-title {
+      font-family: var(--display-font);
       font-size: 2.1rem;
       font-weight: 800;
       letter-spacing: -1.1px;
       line-height: 1.05;
       padding-bottom: 1px;
+    }
+    body.font-serif .view-title {
+      font-size: 2.35rem;
+      letter-spacing: -0.4px;
+      font-weight: 700;
+    }
+    body.font-retro .view-title {
+      font-size: 1.85rem;
+      letter-spacing: -1.2px;
     }
 
     .circle-icon-btn {
@@ -444,13 +458,61 @@
     .dday-badge.highlight { background: var(--accent-blue); color: #fff; }
 
     /* DayPic Style Feed Cards with Locked Horizontal Photo Swipe */
-    .cal-timeline-section { margin-top: 28px; display: flex; flex-direction: column; gap: 16px; }
-    .cal-timeline-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; justify-content: space-between; }
+    .cal-timeline-section { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .cal-timeline-title { font-size: 1.05rem; font-weight: 800; letter-spacing: -0.3px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .feed-layout-switcher {
+      display: inline-flex;
+      background: var(--card-inner);
+      padding: 3px;
+      border-radius: 11px;
+      border: 1px solid var(--border-subtle);
+      gap: 2px;
+    }
+    .feed-layout-btn {
+      width: 28px;
+      height: 24px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      color: var(--text-sub);
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .feed-layout-btn.active {
+      background: var(--card-bg);
+      color: var(--text-main);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
     #cal-timeline-feed {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
+    #cal-timeline-feed.layout-grid2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    #cal-timeline-feed.layout-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    #cal-timeline-feed.layout-photobook {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 14px;
+      padding: 4px 2px 12px;
+      scrollbar-width: none;
+    }
+    #cal-timeline-feed.layout-photobook::-webkit-scrollbar { display: none; }
+
     .cal-timeline-card {
       background: var(--card-bg);
       border-radius: 24px;
@@ -471,11 +533,23 @@
       position: relative;
       overflow: hidden;
     }
+    .cal-card-single-photo.ratio-original {
+      height: auto;
+      max-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .cal-card-single-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       pointer-events: none;
+    }
+    .cal-card-single-photo.ratio-original img {
+      height: auto;
+      max-height: 400px;
+      object-fit: contain;
     }
     .cal-card-photo-scroller {
       width: 100%;
@@ -551,13 +625,309 @@
       color: var(--text-sub);
       border: 1px solid var(--border-subtle);
     }
+    .badge-pill.clickable-person {
+      cursor: pointer;
+      color: var(--text-main);
+    }
+    .badge-pill.clickable-person:active {
+      transform: scale(0.94);
+    }
 
-    /* Diary Read View & Lightbox */
+    /* 2열 갤러리형 / 리스트형 / 포토북 뷰 카드 변형 */
+    .feed-grid2-card {
+      background: var(--card-bg);
+      border-radius: 18px;
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .feed-grid2-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--card-inner);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+    .feed-grid2-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .feed-grid2-body {
+      padding: 10px 11px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .feed-grid2-date {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+    }
+    .feed-grid2-text {
+      font-size: 0.8rem;
+      font-weight: 600;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .feed-list-row {
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+    }
+    .feed-list-thumb {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: var(--card-inner);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+    .feed-list-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    .feed-photobook-card {
+      flex: 0 0 92%;
+      scroll-snap-align: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-subtle);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .feed-photobook-frame {
+      width: 100%;
+      height: 290px;
+      border-radius: 16px;
+      background: var(--card-inner);
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .feed-photobook-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Diary Read View: Auto Collage Grid, Metadata Spec Bar & Backlinks */
     .diary-read-container {
       display: flex;
       flex-direction: column;
       gap: 14px;
     }
+    .editorial-collage-grid {
+      display: grid;
+      gap: 5px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: var(--card-inner);
+    }
+    .editorial-collage-grid.cols-1 {
+      grid-template-columns: 1fr;
+    }
+    .editorial-collage-grid.cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .editorial-collage-grid.cols-3 {
+      grid-template-columns: 1.35fr 1fr;
+      grid-template-rows: repeat(2, 145px);
+    }
+    .editorial-collage-grid.cols-3 .ec-tile:first-child {
+      grid-row: span 2;
+    }
+    .editorial-collage-grid.cols-4 {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(2, 150px);
+    }
+    .ec-tile {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 155px;
+      overflow: hidden;
+      cursor: zoom-in;
+      background: var(--card-inner);
+    }
+    .editorial-collage-grid.cols-1 .ec-tile {
+      min-height: 240px;
+      max-height: 360px;
+    }
+    .editorial-collage-grid.cols-1.ratio-original .ec-tile {
+      max-height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ec-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .editorial-collage-grid.cols-1.ratio-original .ec-tile img {
+      height: auto;
+      max-height: 440px;
+      object-fit: contain;
+    }
+    .ec-more-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.52);
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Micro Metadata Spec Strip */
+    .metadata-spec-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+      font-family: "Space Mono", monospace;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--text-sub);
+    }
+    .spec-divider {
+      opacity: 0.35;
+    }
+
+    /* Linked Archive Backlink Card inside Diary */
+    .linked-archive-section {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 2px;
+    }
+    .linked-archive-label {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-sub);
+      letter-spacing: 0.3px;
+    }
+    .linked-ticket-mini {
+      background: var(--card-inner);
+      border: 1px dashed var(--border-subtle);
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .linked-ticket-mini:active { transform: scale(0.985); }
+    .linked-ticket-thumb {
+      width: 40px;
+      height: 48px;
+      border-radius: 8px;
+      background: var(--card-bg);
+      overflow: hidden;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+    .linked-ticket-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Editor Formatting Toolbar */
+    .editor-format-toolbar {
+      display: flex;
+      gap: 6px;
+      padding: 6px;
+      background: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+    .fmt-tool-btn {
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--card-bg);
+      color: var(--text-main);
+      font-size: 0.76rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .fmt-tool-btn:active { transform: scale(0.94); }
+
+    /* Person Relationship Archive Board */
+    .person-profile-card {
+      background: var(--card-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .person-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .person-stat-box {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 10px 6px;
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+    }
+    .person-photo-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .person-photo-tile {
+      aspect-ratio: 1;
+      border-radius: 9px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--card-bg);
+    }
+    .person-photo-tile img { width: 100%; height: 100%; object-fit: cover; }
+
     .diary-read-gallery-outer {
       position: relative;
       width: 100%;
@@ -1044,6 +1414,7 @@
       flex-direction: column;
       gap: 14px;
       box-shadow: var(--shadow-sm);
+      margin-bottom: 16px;
     }
     .recap-header-row { display: flex; justify-content: space-between; align-items: center; }
     .recap-title { font-size: 0.95rem; font-weight: 800; display: flex; align-items: center; gap: 6px; }
@@ -1813,20 +2184,28 @@
 
       <div class="cal-timeline-section">
         <div class="cal-timeline-title">
-          <span id="cal-feed-month-heading">이달의 기록</span>
-          <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-sub);" id="cal-month-record-badge">0개</span>
+          <div style="display:flex; align-items:center; gap:7px;">
+            <span id="cal-feed-month-heading">이달의 기록</span>
+            <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-sub);" id="cal-month-record-badge">0개</span>
+          </div>
+          <div class="feed-layout-switcher" title="피드 레이아웃 전환">
+            <button type="button" class="feed-layout-btn active" id="feed-btn-card" onclick="setFeedLayoutMode('card')" title="큰 카드형"><i class="fa-regular fa-square"></i></button>
+            <button type="button" class="feed-layout-btn" id="feed-btn-grid2" onclick="setFeedLayoutMode('grid2')" title="2열 갤러리"><i class="fa-solid fa-border-all"></i></button>
+            <button type="button" class="feed-layout-btn" id="feed-btn-list" onclick="setFeedLayoutMode('list')" title="리스트형"><i class="fa-solid fa-list"></i></button>
+            <button type="button" class="feed-layout-btn" id="feed-btn-photobook" onclick="setFeedLayoutMode('photobook')" title="포토북 집중 모드"><i class="fa-solid fa-book-open"></i></button>
+          </div>
         </div>
         <div id="cal-timeline-feed"></div>
       </div>
     </div>
 
-    <!-- [탭 2] Timeline -->
+    <!-- [탭 2] Archive (구 Timeline) -->
     <div id="tab-timeline" class="tab-view">
       <div class="sticky-top-header">
         <div class="view-large-header">
           <div>
             <div class="view-caption" id="archive-count-text">0건</div>
-            <div class="view-title">Timeline</div>
+            <div class="view-title">Archive</div>
           </div>
           <button class="btn-pill-add" onclick="openArchiveModal()">+ 기록</button>
         </div>
@@ -1899,22 +2278,12 @@
         <div class="weekly-log-list" id="weekly-log-list"></div>
       </div>
 
-      <!-- 2) 월간 포토 콜라주 & 월말 결산 리포트 -->
+      <!-- 2) 월말 결산 리포트 & 월간 포토 콜라주 -->
       <div id="ov-panel-collage" style="display: none;">
         <div class="week-nav-bar">
           <button class="week-nav-btn" onclick="shiftMonthInOverview(-1)"><i class="fa-solid fa-chevron-left"></i></button>
           <div class="week-nav-title" id="collage-nav-title">2026년 11월</div>
           <button class="week-nav-btn" onclick="shiftMonthInOverview(1)"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
-
-        <div class="collage-poster-card">
-          <div class="collage-poster-header">
-            <div>
-              <div class="collage-poster-sub" id="collage-poster-sub">2026 PHOTO ARCHIVE</div>
-              <div class="collage-poster-month" id="collage-poster-month">November</div>
-            </div>
-          </div>
-          <div id="collage-grid-container"></div>
         </div>
 
         <div class="recap-section-card" id="monthly-recap-card">
@@ -1961,6 +2330,16 @@
             <div class="mood-palette-row" id="recap-mood-palette"></div>
           </div>
         </div>
+
+        <div class="collage-poster-card">
+          <div class="collage-poster-header">
+            <div>
+              <div class="collage-poster-sub" id="collage-poster-sub">2026 PHOTO ARCHIVE</div>
+              <div class="collage-poster-month" id="collage-poster-month">November</div>
+            </div>
+          </div>
+          <div id="collage-grid-container"></div>
+        </div>
       </div>
 
       <!-- 3) 연간 365 잔디 매트릭스 -->
@@ -1999,8 +2378,8 @@
         <span>Calendar</span>
       </button>
       <button class="nav-item" onclick="switchTab('timeline')">
-        <i class="fa-solid fa-book-open"></i>
-        <span>Timeline</span>
+        <i class="fa-solid fa-box-archive"></i>
+        <span>Archive</span>
       </button>
       <button class="nav-item" onclick="switchTab('tasks')">
         <i class="fa-solid fa-square-check"></i>
@@ -2048,11 +2427,13 @@
       </div>
     </div>
 
-    <!-- [VIEW 1] 감성 일기장 열람(Read) 화면 (중복 하단 버튼 제거) -->
+    <!-- [VIEW 1] 감성 일기장 열람(Read) 화면 -->
     <div id="diary-read-view" class="diary-read-container" style="display: none;">
       <div id="diary-read-gallery-wrap"></div>
+      <div id="diary-read-spec-strip"></div>
       <div class="diary-read-meta-row" id="diary-read-meta"></div>
       <div class="diary-read-essay-box" id="diary-read-essay"></div>
+      <div id="diary-read-backlinks"></div>
     </div>
 
     <!-- [VIEW 2] 일기 작성 및 수정(Edit) 화면 -->
@@ -2094,6 +2475,13 @@
           <input type="text" id="new-emoji-input" class="pool-add-input" placeholder="+ 새 이모지 추가" onkeydown="handleNewEmojiKey(event)">
           <button type="button" class="pool-add-btn" onclick="addNewCustomEmoji()">추가</button>
         </div>
+      </div>
+
+      <div class="editor-format-toolbar">
+        <button type="button" class="fmt-tool-btn" onclick="insertDiaryFormat('bullet')">• 목록</button>
+        <button type="button" class="fmt-tool-btn" onclick="insertDiaryFormat('check')">☐ 체크</button>
+        <button type="button" class="fmt-tool-btn" onclick="insertDiaryFormat('divider')">— 구분선</button>
+        <button type="button" class="fmt-tool-btn" onclick="insertDiaryFormat('quote')">「인용」</button>
       </div>
 
       <textarea class="clean-textarea" id="diary-input-text" placeholder="오늘 가장 기억에 남는 장면은 무엇인가요?" style="min-height: 115px; line-height: 1.6;"></textarea>
@@ -2211,20 +2599,31 @@
     <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">글꼴 스타일</div>
     <div class="font-picker-group">
       <button class="theme-btn" id="font-btn-sans" onclick="setAppFont('sans')" style="font-family: 'Pretendard Variable', sans-serif;">
-        <span style="font-size:1.05rem; font-weight:800;">가나다</span>
+        <span style="font-size:1.05rem; font-weight:800;">ABC 가나</span>
         <span>모던 고딕</span>
       </button>
-      <button class="theme-btn" id="font-btn-serif" onclick="setAppFont('serif')" style="font-family: 'Noto Serif KR', serif;">
-        <span style="font-size:1.05rem; font-weight:700;">가나다</span>
+      <button class="theme-btn" id="font-btn-serif" onclick="setAppFont('serif')" style="font-family: 'Cormorant Garamond', 'Noto Serif KR', serif;">
+        <span style="font-size:1.15rem; font-weight:700;">ABC 가나</span>
         <span>감성 명조</span>
       </button>
-      <button class="theme-btn" id="font-btn-hand" onclick="setAppFont('hand')" style="font-family: 'Gowun Dodum', sans-serif;">
-        <span style="font-size:1.05rem; font-weight:600;">가나다</span>
+      <button class="theme-btn" id="font-btn-hand" onclick="setAppFont('hand')" style="font-family: 'Patrick Hand', 'Gowun Dodum', sans-serif;">
+        <span style="font-size:1.15rem; font-weight:700;">ABC 가나</span>
         <span>다정 손글씨</span>
       </button>
-      <button class="theme-btn" id="font-btn-retro" onclick="setAppFont('retro')" style="font-family: 'IBM Plex Sans KR', sans-serif;">
-        <span style="font-size:1.05rem; font-weight:700;">가나다</span>
+      <button class="theme-btn" id="font-btn-retro" onclick="setAppFont('retro')" style="font-family: 'Space Mono', 'IBM Plex Sans KR', sans-serif;">
+        <span style="font-size:1.05rem; font-weight:700;">ABC 가나</span>
         <span>아카이브 타자</span>
+      </button>
+    </div>
+    <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">사진 프레임 비율</div>
+    <div class="font-picker-group">
+      <button class="theme-btn" id="ratio-btn-crop" onclick="setPhotoRatioMode('crop')">
+        <i class="fa-solid fa-crop-simple" style="font-size:1.05rem;"></i>
+        <span>균일한 와이드 프레임</span>
+      </button>
+      <button class="theme-btn" id="ratio-btn-original" onclick="setPhotoRatioMode('original')">
+        <i class="fa-regular fa-image" style="font-size:1.05rem;"></i>
+        <span>원본 비율 유지</span>
       </button>
     </div>
     <div style="font-size:0.85rem; font-weight:700; color:var(--text-sub);">클라우드 동기화</div>
@@ -2282,10 +2681,26 @@
       </div>
 
       <div style="display: flex; gap: 8px; margin-top: 10px;">
+        <button class="btn-submit-sheet" id="btn-ticket-open-diary" style="flex: 1.2; padding: 10px; font-size: 0.82rem; background: var(--card-inner); color: var(--accent-blue); border: 1px solid var(--border-subtle); display:none;" onclick="openDiaryFromTicket()">그날 일기</button>
         <button class="btn-submit-sheet" style="flex: 1; padding: 10px; font-size: 0.85rem; background: var(--card-inner); color: var(--text-main); border: 1px solid var(--border-subtle);" onclick="editArchiveFromTicket()">수정</button>
         <button class="btn-submit-sheet ready" style="flex: 1; padding: 10px; font-size: 0.85rem;" onclick="closeTicketModal()">닫기</button>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- [모달 7] 인물별 관계 아카이브 프로필 보드 -->
+<div class="modal-overlay" id="person-modal" onclick="closePersonModal()">
+  <div class="bottom-sheet" onclick="event.stopPropagation()">
+    <div class="sheet-grabber-wrap"><div class="sheet-grabber-bar"></div></div>
+    <div class="sheet-header">
+      <div class="editorial-date-stack">
+        <span class="editorial-date-kicker">RELATIONSHIP INDEX</span>
+        <span class="editorial-date-main" id="person-modal-title">#친구</span>
+      </div>
+      <button class="sheet-close-btn" onclick="closePersonModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="person-modal-body" style="display:flex; flex-direction:column; gap:14px;"></div>
   </div>
 </div>
 
@@ -2396,6 +2811,14 @@
   let appFont = (() => {
     try { return localStorage.getItem('min_font') || 'sans'; } catch (e) { return 'sans'; }
   })();
+  let photoRatioMode = (() => {
+    try { return localStorage.getItem('min_photo_ratio') || 'crop'; } catch (e) { return 'crop'; }
+  })();
+  let feedLayoutMode = (() => {
+    try { return localStorage.getItem('min_feed_layout') || 'card'; } catch (e) { return 'card'; }
+  })();
+  let currentActiveTab = 'calendar';
+  const tabScrollPositions = { calendar: 0, timeline: 0, tasks: 0, overview: 0 };
   
   let userBadgePool = safeGetLocal('min_user_badges', ["친구", "가족", "연인", "혼자", "동료", "반려동물"]);
   let selectedBadgesInModal = [];
@@ -2644,6 +3067,44 @@
     try { localStorage.setItem('min_font', font); } catch (e) {}
   }
 
+  function applyPhotoRatioMode(mode) {
+    photoRatioMode = mode;
+    document.querySelectorAll('[id^="ratio-btn-"]').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`ratio-btn-${mode}`);
+    if (activeBtn) activeBtn.classList.add('active');
+  }
+
+  function setPhotoRatioMode(mode) {
+    triggerHaptic(6);
+    applyPhotoRatioMode(mode);
+    try { localStorage.setItem('min_photo_ratio', mode); } catch (e) {}
+    renderCalTimelineFeed();
+    if (currentDiaryModalMode === 'read' && selectedDateStr) {
+      renderDiaryReadView();
+    }
+  }
+
+  function applyFeedLayoutMode(mode) {
+    feedLayoutMode = mode;
+    document.querySelectorAll('.feed-layout-btn').forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(`feed-btn-${mode}`);
+    if (activeBtn) activeBtn.classList.add('active');
+    const feed = document.getElementById('cal-timeline-feed');
+    if (feed) {
+      feed.classList.remove('layout-grid2', 'layout-list', 'layout-photobook');
+      if (mode === 'grid2') feed.classList.add('layout-grid2');
+      else if (mode === 'list') feed.classList.add('layout-list');
+      else if (mode === 'photobook') feed.classList.add('layout-photobook');
+    }
+  }
+
+  function setFeedLayoutMode(mode) {
+    triggerHaptic(6);
+    applyFeedLayoutMode(mode);
+    try { localStorage.setItem('min_feed_layout', mode); } catch (e) {}
+    renderCalTimelineFeed();
+  }
+
   function updateTodayJumpButtons() {
     const now = new Date();
     const isCurrentMonth = (viewDate.getFullYear() === now.getFullYear() && viewDate.getMonth() === now.getMonth());
@@ -2793,6 +3254,7 @@
   function renderCalTimelineFeed() {
     const container = document.getElementById('cal-timeline-feed');
     container.innerHTML = '';
+    applyFeedLayoutMode(feedLayoutMode);
 
     const y = viewDate.getFullYear();
     const m = viewDate.getMonth();
@@ -2806,16 +3268,87 @@
     document.getElementById('cal-month-record-badge').innerText = `${sortedDates.length}개`;
 
     if (sortedDates.length === 0) {
+      container.classList.remove('layout-grid2', 'layout-list', 'layout-photobook');
       container.innerHTML = `<div style="background:var(--card-bg); border-radius:var(--radius-md); padding:32px 16px; text-align:center; color:var(--text-sub); font-size:0.86rem; border:1px dashed var(--border-subtle);">이 달의 기록이 아직 없어요</div>`;
       return;
     }
 
-    sortedDates.forEach(dateStr => {
+    sortedDates.forEach((dateStr, cardIndex) => {
       const entry = diaryStore[dateStr];
       const [yy, mm, dd] = dateStr.split('-').map(Number);
       const dayName = DAY_LABELS[new Date(yy, mm - 1, dd).getDay()];
       const photos = entry.photos || [];
+      const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
+      const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+      const favHeartHtml = entry.favorite ? `<i class="fa-solid fa-heart" style="color:#ff3b30; font-size:0.8rem;"></i>` : '';
 
+      // 1) 2열 갤러리형
+      if (feedLayoutMode === 'grid2') {
+        const gCard = document.createElement('div');
+        gCard.className = 'feed-grid2-card';
+        gCard.onclick = () => { triggerHaptic(6); openDiaryModal(dateStr); };
+        const mediaHtml = photos.length > 0
+          ? `<img src="${photos[0]}">${photos.length > 1 ? `<span class="cal-photo-count-badge">+${photos.length - 1}</span>` : ''}`
+          : `<span>${emojis[0] || '📖'}</span>`;
+        const summary = (entry.text || '').trim() || badges.map(b => '#' + b).join(' ') || emojis.join('') || `${mm}월 ${dd}일`;
+        gCard.innerHTML = `
+          <div class="feed-grid2-photo">${mediaHtml}</div>
+          <div class="feed-grid2-body">
+            <div class="feed-grid2-date">${mm}.${dd} (${dayName}) ${favHeartHtml}</div>
+            <div class="feed-grid2-text">${summary}</div>
+          </div>
+        `;
+        container.appendChild(gCard);
+        return;
+      }
+
+      // 2) 깔끔한 리스트형
+      if (feedLayoutMode === 'list') {
+        const lRow = document.createElement('div');
+        lRow.className = 'feed-list-row';
+        lRow.onclick = () => { triggerHaptic(6); openDiaryModal(dateStr); };
+        const thumbHtml = photos.length > 0 ? `<img src="${photos[0]}">` : `<span>${emojis[0] || '📖'}</span>`;
+        const summary = (entry.text || '').trim() || badges.map(b => '#' + b).join(' ') || `${mm}월 ${dd}일 기록`;
+        lRow.innerHTML = `
+          <div class="feed-list-thumb">${thumbHtml}</div>
+          <div style="flex:1; min-width:0; display:flex; flex-direction:column; gap:3px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:0.76rem; font-weight:800; color:var(--accent-blue);">${mm}월 ${dd}일 (${dayName}) ${favHeartHtml}</span>
+              <span style="font-size:0.85rem;">${emojis.join('')}</span>
+            </div>
+            <div style="font-size:0.88rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${summary}</div>
+            ${badges.length > 0 ? `<div style="font-size:0.72rem; color:var(--text-sub);">${badges.map(b => '#' + b).join(' ')}</div>` : ''}
+          </div>
+        `;
+        container.appendChild(lRow);
+        return;
+      }
+
+      // 3) 포토북 1장 집중 뷰
+      if (feedLayoutMode === 'photobook') {
+        const pbCard = document.createElement('div');
+        pbCard.className = 'feed-photobook-card';
+        pbCard.onclick = () => { triggerHaptic(6); openDiaryModal(dateStr); };
+        const stamp = formatFilmStamp(dateStr);
+        const frameInner = photos.length > 0
+          ? `<img src="${photos[0]}"><span class="film-date-stamp">${stamp}</span>${photos.length > 1 ? `<span class="cal-photo-count-badge" style="top:10px; right:10px; bottom:auto;">1/${photos.length}</span>` : ''}`
+          : `<span>${emojis[0] || '📖'}</span>`;
+        pbCard.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--display-font); font-size:0.8rem; font-weight:800; letter-spacing:0.6px; color:var(--text-sub);">PAGE ${String(cardIndex + 1).padStart(2, '0')} / ${String(sortedDates.length).padStart(2, '0')}</span>
+            <span style="font-size:0.82rem; font-weight:800;">${mm}월 ${dd}일 (${dayName}) ${favHeartHtml}</span>
+          </div>
+          <div class="feed-photobook-frame">${frameInner}</div>
+          <div style="display:flex; flex-direction:column; gap:5px;">
+            ${badges.length > 0 ? `<div class="badge-wrap">${badges.map(b => `<span class="badge-pill">#${b}</span>`).join('')}</div>` : ''}
+            <div style="font-size:0.9rem; line-height:1.5; color:var(--text-main); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">${entry.text || emojis.join(' ') || '기록 보기'}</div>
+          </div>
+        `;
+        container.appendChild(pbCard);
+        return;
+      }
+
+      // 4) 기본 큰 카드형
       const card = document.createElement('div');
       card.className = 'cal-timeline-card';
       card.onclick = () => {
@@ -2823,11 +3356,12 @@
         openDiaryModal(dateStr);
       };
 
+      const ratioCls = photoRatioMode === 'original' ? ' ratio-original' : '';
       let photoHtml = '';
       if (photos.length === 1) {
         const stamp = formatFilmStamp(dateStr);
         photoHtml = `
-          <div class="cal-card-single-photo">
+          <div class="cal-card-single-photo${ratioCls}">
             <img src="${photos[0]}">
             <span class="film-date-stamp">${stamp}</span>
           </div>
@@ -2843,15 +3377,11 @@
         `).join('');
         photoHtml = `<div class="cal-card-photo-scroller">${slides}</div>`;
       } else {
-        photoHtml = `<div class="cal-card-placeholder-box">${(entry.emojis && entry.emojis[0]) || entry.emoji || '📖'}</div>`;
+        photoHtml = `<div class="cal-card-placeholder-box">${emojis[0] || '📖'}</div>`;
       }
 
-      const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
-      const badgePillsHtml = badges.map(b => `<span class="badge-pill">#${b}</span>`).join('');
-
-      const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+      const badgePillsHtml = badges.map(b => `<span class="badge-pill clickable-person" onclick="event.stopPropagation(); openPersonProfileModal('${b}')">#${b}</span>`).join('');
       const emojiPillsHtml = emojis.length > 0 ? `<span class="badge-pill" style="font-size:0.95rem; letter-spacing:1px;">${emojis.join('')}</span>` : '';
-      const favHeartHtml = entry.favorite ? `<i class="fa-solid fa-heart" style="color:#ff3b30; font-size:0.8rem;"></i>` : '';
 
       card.innerHTML = `
         ${photoHtml}
@@ -3331,34 +3861,34 @@
   function renderDiaryReadView() {
     const entry = diaryStore[selectedDateStr] || { text: '', photos: [], badges: [], emojis: [] };
     const galleryWrap = document.getElementById('diary-read-gallery-wrap');
+    const specStrip = document.getElementById('diary-read-spec-strip');
     const metaRow = document.getElementById('diary-read-meta');
     const essayBox = document.getElementById('diary-read-essay');
+    const backlinksBox = document.getElementById('diary-read-backlinks');
 
-    // 1. Photos Gallery with Swipe, PC Arrow Buttons & Pagination Dots
+    // 1. Auto Editorial Collage Frame (1~4장 이상 자동 그리드 배열)
     const photos = entry.photos || [];
     if (photos.length > 0) {
       const stamp = formatFilmStamp(selectedDateStr);
-      const slidesHtml = photos.map((src, idx) => `
-        <div class="diary-read-slide" onclick="openPhotoLightbox(${idx})">
-          <img src="${src}">
-          ${photos.length > 1 ? `<span class="cal-photo-count-badge" style="top:12px; right:12px; bottom:auto; font-size:0.72rem; padding:3px 8px;">${idx + 1} / ${photos.length}</span>` : ''}
-          <span class="film-date-stamp" style="left:12px; right:auto;">${stamp}</span>
-          <span class="cal-photo-count-badge" style="bottom:12px; right:12px; font-size:0.68rem; padding:3px 7px;"><i class="fa-solid fa-expand"></i></span>
-        </div>
-      `).join('');
+      const count = photos.length;
+      const gridClass = count === 1 ? 'cols-1' : (count === 2 ? 'cols-2' : (count === 3 ? 'cols-3' : 'cols-4'));
+      const ratioCls = (count === 1 && photoRatioMode === 'original') ? ' ratio-original' : '';
+      const visiblePhotos = photos.slice(0, 4);
 
-      const controlsHtml = photos.length > 1 ? `
-        <button type="button" class="gallery-nav-arrow prev" onclick="scrollDiaryReadGallery(-1)" aria-label="이전 사진"><i class="fa-solid fa-chevron-left"></i></button>
-        <button type="button" class="gallery-nav-arrow next" onclick="scrollDiaryReadGallery(1)" aria-label="다음 사진"><i class="fa-solid fa-chevron-right"></i></button>
-        <div class="gallery-dots-bar" id="diary-read-dots">
-          ${photos.map((_, i) => `<span class="gallery-dot ${i === 0 ? 'active' : ''}"></span>`).join('')}
-        </div>
-      ` : '';
+      const tilesHtml = visiblePhotos.map((src, idx) => {
+        const isLastWithMore = (idx === 3 && count > 4);
+        return `
+          <div class="ec-tile" onclick="openPhotoLightbox(${idx})">
+            <img src="${src}">
+            ${idx === 0 ? `<span class="film-date-stamp" style="left:10px; right:auto; bottom:10px;">${stamp}</span>` : ''}
+            ${isLastWithMore ? `<div class="ec-more-overlay">+${count - 4}</div>` : ''}
+          </div>
+        `;
+      }).join('');
 
       galleryWrap.innerHTML = `
-        <div class="diary-read-gallery-outer">
-          <div class="diary-read-gallery" id="diary-read-scroller" onscroll="updateDiaryReadDots()">${slidesHtml}</div>
-          ${controlsHtml}
+        <div class="editorial-collage-grid ${gridClass}${ratioCls}">
+          ${tilesHtml}
         </div>
       `;
       galleryWrap.style.display = 'block';
@@ -3367,24 +3897,185 @@
       galleryWrap.style.display = 'none';
     }
 
-    // 2. Emojis & With Badges
-    metaRow.innerHTML = '';
-    const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
-    if (emojis.length > 0) {
-      metaRow.innerHTML += `<span class="badge-pill" style="font-size:1.05rem; letter-spacing:2px; padding:5px 10px;">${emojis.join('')}</span>`;
-    }
+    // 2. Micro Metadata Spec Strip
     const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
-    badges.forEach(b => {
-      metaRow.innerHTML += `<span class="badge-pill" style="font-weight:700;">#${b}</span>`;
-    });
+    const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+    const specParts = [`DATE · ${selectedDateStr.replace(/-/g, '.')}`];
+    if (photos.length > 0) specParts.push(`SHOTS · ${photos.length}`);
+    if (badges.length > 0) specParts.push(`WITH · ${badges.join(', ')}`);
+    if (emojis.length > 0) specParts.push(`MOOD · ${emojis.join('')}`);
 
-    // 3. Essay Body (글이 없으면 상자 자체를 깔끔하게 숨김)
+    specStrip.innerHTML = `
+      <div class="metadata-spec-strip">
+        ${specParts.join(' <span class="spec-divider">|</span> ')}
+      </div>
+    `;
+
+    // 3. Clickable Person Badges (관계 아카이브 프로필 보드 연결)
+    metaRow.innerHTML = '';
+    if (badges.length > 0) {
+      badges.forEach(b => {
+        metaRow.innerHTML += `<span class="badge-pill clickable-person" onclick="openPersonProfileModal('${b}')">#${b} <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.62rem; opacity:0.6;"></i></span>`;
+      });
+      metaRow.style.display = 'flex';
+    } else {
+      metaRow.style.display = 'none';
+    }
+
+    // 4. Essay Body
     if (entry.text && entry.text.trim().length > 0) {
       essayBox.innerText = entry.text;
       essayBox.style.display = 'block';
     } else {
       essayBox.innerText = '';
       essayBox.style.display = 'none';
+    }
+
+    // 5. Linked Archive Backlinks (같은 날짜에 기록된 책·영화·운동 아카이브 자동 연결)
+    const linkedItems = archiveStore.filter(a => a.date === selectedDateStr);
+    if (linkedItems.length > 0) {
+      backlinksBox.innerHTML = `
+        <div class="linked-archive-section">
+          <div class="linked-archive-label"><i class="fa-solid fa-link" style="color:var(--accent-blue);"></i> 이날의 아카이브 기록</div>
+          ${linkedItems.map(item => `
+            <div class="linked-ticket-mini" onclick="closeDiaryModal(); openTicketModal(${item.id});">
+              <div class="linked-ticket-thumb">
+                ${item.cover ? `<img src="${item.cover}">` : `<span>${item.emoji || '✨'}</span>`}
+              </div>
+              <div style="flex:1; min-width:0;">
+                <div style="font-size:0.68rem; font-weight:800; color:var(--accent-blue);">${item.category} ${item.rating ? `· ★ ${item.rating}` : ''}</div>
+                <div style="font-size:0.86rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
+                ${item.sub ? `<div style="font-size:0.72rem; color:var(--text-sub); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.sub}</div>` : ''}
+              </div>
+              <i class="fa-solid fa-chevron-right" style="font-size:0.72rem; color:var(--text-sub);"></i>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      backlinksBox.style.display = 'block';
+    } else {
+      backlinksBox.innerHTML = '';
+      backlinksBox.style.display = 'none';
+    }
+  }
+
+  function insertDiaryFormat(type) {
+    const textarea = document.getElementById('diary-input-text');
+    if (!textarea) return;
+    triggerHaptic(6);
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const val = textarea.value;
+    const before = val.slice(0, start);
+    const after = val.slice(end);
+    const needNewline = before.length > 0 && !before.endsWith('\n');
+    const prefix = needNewline ? '\n' : '';
+
+    let insertText = '';
+    if (type === 'bullet') insertText = `${prefix}• `;
+    else if (type === 'check') insertText = `${prefix}☐ `;
+    else if (type === 'divider') insertText = `${prefix}──────────\n`;
+    else if (type === 'quote') insertText = `${prefix}「  」`;
+
+    textarea.value = before + insertText + after;
+    const cursorPos = type === 'quote'
+      ? (before + insertText).length - 1
+      : (before + insertText).length;
+    textarea.focus();
+    textarea.setSelectionRange(cursorPos, cursorPos);
+    saveCurrentDiaryDraft();
+  }
+
+  /* Person Relationship Archive Profile Board */
+  function openPersonProfileModal(personName) {
+    triggerHaptic(8);
+    const matchedDates = Object.keys(diaryStore)
+      .filter(dStr => {
+        const entry = diaryStore[dStr];
+        const badges = entry.badges || (entry.withWho ? [entry.withWho] : []);
+        return badges.includes(personName);
+      })
+      .sort((a, b) => new Date(b) - new Date(a));
+
+    document.getElementById('person-modal-title').innerText = `#${personName}`;
+    const body = document.getElementById('person-modal-body');
+
+    if (matchedDates.length === 0) {
+      body.innerHTML = `<div style="text-align:center; padding:28px; color:var(--text-sub); font-size:0.86rem;">아직 기록이 없어요</div>`;
+    } else {
+      const firstDate = matchedDates[matchedDates.length - 1].replace(/-/g, '.');
+      const allPhotos = [];
+      const emojiMap = {};
+
+      matchedDates.forEach(dStr => {
+        const entry = diaryStore[dStr];
+        if (entry.photos && entry.photos.length > 0) {
+          entry.photos.forEach(src => allPhotos.push({ dateStr: dStr, src }));
+        }
+        const emojis = entry.emojis || (entry.emoji ? [entry.emoji] : []);
+        emojis.forEach(em => { emojiMap[em] = (emojiMap[em] || 0) + 1; });
+      });
+
+      const topEmojis = Object.entries(emojiMap).sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0]).join(' ') || '✨';
+
+      const photosHtml = allPhotos.length > 0 ? `
+        <div style="font-size:0.78rem; font-weight:800; color:var(--text-sub); margin-top:4px;">함께 남긴 사진 (${allPhotos.length}장)</div>
+        <div class="person-photo-strip">
+          ${allPhotos.slice(0, 8).map(p => `
+            <div class="person-photo-tile" onclick="closePersonModal(); closeDiaryModal(); openDiaryModal('${p.dateStr}');">
+              <img src="${p.src}">
+            </div>
+          `).join('')}
+        </div>
+      ` : '';
+
+      const logsHtml = matchedDates.slice(0, 6).map(dStr => {
+        const entry = diaryStore[dStr];
+        const [yy, mm, dd] = dStr.split('-').map(Number);
+        return `
+          <div class="search-result-card" onclick="closePersonModal(); closeDiaryModal(); viewDate = new Date(${yy}, ${mm - 1}, 1); renderCalendar(); openDiaryModal('${dStr}');">
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:0.74rem; font-weight:800; color:var(--accent-blue);">${yy}. ${mm}. ${dd}.</div>
+              <div style="font-size:0.86rem; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${entry.text || '사진 기록'}</div>
+            </div>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.72rem; color:var(--text-sub);"></i>
+          </div>
+        `;
+      }).join('');
+
+      body.innerHTML = `
+        <div class="person-profile-card">
+          <div class="person-stat-row">
+            <div class="person-stat-box">
+              <div class="recap-stat-num">${matchedDates.length}회</div>
+              <div class="recap-stat-label">함께한 날</div>
+            </div>
+            <div class="person-stat-box">
+              <div class="recap-stat-num" style="font-size:0.95rem; padding-top:3px;">${firstDate.slice(2)}</div>
+              <div class="recap-stat-label">첫 기록</div>
+            </div>
+            <div class="person-stat-box">
+              <div class="recap-stat-num">${topEmojis}</div>
+              <div class="recap-stat-label">주요 무드</div>
+            </div>
+          </div>
+          ${photosHtml}
+        </div>
+        <div style="font-size:0.78rem; font-weight:800; color:var(--text-sub);">최근 함께한 기록</div>
+        <div style="display:flex; flex-direction:column; gap:6px; max-height:32vh; overflow-y:auto;">${logsHtml}</div>
+      `;
+    }
+
+    document.body.classList.add('modal-open');
+    document.getElementById('person-modal').classList.add('active');
+  }
+
+  function closePersonModal() {
+    triggerHaptic(6);
+    document.getElementById('person-modal').classList.remove('active');
+    if (!document.getElementById('diary-modal').classList.contains('active')) {
+      document.body.classList.remove('modal-open');
     }
   }
 
@@ -4418,8 +5109,26 @@
     document.getElementById('tk-memo').innerText = item.memo || '';
     document.getElementById('tk-quote').innerText = item.quote ? `“${item.quote}”` : '';
 
+    const diaryBtn = document.getElementById('btn-ticket-open-diary');
+    if (diaryBtn) {
+      diaryBtn.style.display = item.date ? 'block' : 'none';
+    }
+
     document.body.classList.add('modal-open');
     document.getElementById('ticket-modal').classList.add('active');
+  }
+
+  function openDiaryFromTicket() {
+    const item = archiveStore.find(i => i.id === viewingTicketId);
+    if (!item || !item.date) return;
+    triggerHaptic(6);
+    const targetDate = item.date;
+    const [yy, mm] = targetDate.split('-').map(Number);
+    closeTicketModal();
+    switchTab('calendar');
+    viewDate = new Date(yy, mm - 1, 1);
+    renderCalendar();
+    openDiaryModal(targetDate);
   }
 
   function closeTicketModal() {
@@ -4511,6 +5220,7 @@
     triggerHaptic(6);
     applyTheme(appTheme);
     applyFont(appFont);
+    applyPhotoRatioMode(photoRatioMode);
     document.body.classList.add('modal-open');
     document.getElementById('settings-modal').classList.add('active');
   }
@@ -4576,6 +5286,20 @@
 
   function switchTab(tab) {
     triggerHaptic(6);
+    const mainEl = document.querySelector('main');
+
+    // 이미 보고 있는 탭을 다시 누르면 부드럽게 최상단으로 복귀 (Scroll-to-Top)
+    if (currentActiveTab === tab) {
+      if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    // 현재 탭 스크롤 위치 기억
+    if (mainEl && currentActiveTab) {
+      tabScrollPositions[currentActiveTab] = mainEl.scrollTop;
+    }
+    currentActiveTab = tab;
+
     document.querySelectorAll('.tab-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
 
@@ -4595,6 +5319,12 @@
       document.getElementById('tab-overview').classList.add('active');
       document.querySelectorAll('.nav-item')[3].classList.add('active');
       renderCurrentOverviewView();
+    }
+
+    if (mainEl) {
+      requestAnimationFrame(() => {
+        mainEl.scrollTop = tabScrollPositions[tab] || 0;
+      });
     }
   }
 
@@ -4700,6 +5430,8 @@
 
   applyTheme(appTheme);
   applyFont(appFont);
+  applyPhotoRatioMode(photoRatioMode);
+  applyFeedLayoutMode(feedLayoutMode);
   renderCalendar();
   renderArchive();
   renderTasks();
